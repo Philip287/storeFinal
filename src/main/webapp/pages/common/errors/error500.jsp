@@ -18,6 +18,15 @@
     <h1 class="error"><cst:localeTag key="error.error" /> 500!</h1>
 </main>
 
+Request from : ${pageContext.errorData.requestURI} is failed <br/>
+Servlet name : ${pageContext.errorData.servletName} <br/>
+Status code : ${pageContext.errorData.statusCode} <br/>
+Exception : ${pageContext.exception} <br/>
+<br/><br/><br/>
+Massage from exception: ${error_msg}
+
+<hr/>
+
 </body>
 
 <jsp:include page="../shared/footer.jsp" />

@@ -3,14 +3,26 @@ package com.suprun.store.entity;
 import java.util.Arrays;
 import java.util.Objects;
 
+/**
+ * {@code User} class represents a user entity.
+ *
+ * @author Philip Suprun
+ * @see AbstractEntity
+ */
 public class User extends AbstractEntity {
 
+    /**
+     * Enum containing user roles assigned by administrator.
+     */
     public enum UserRole {
         ADMIN,
         MANAGER,
         CLIENT
     }
 
+    /**
+     * Enum containing user statuses assigned by administrator.
+     */
     public enum UserStatus {
         NOT_CONFIRMED,
         CONFIRMED,
@@ -97,6 +109,11 @@ public class User extends AbstractEntity {
         return stringBuilder.toString();
     }
 
+    /**
+     * {@code UserBuilder} is a subclass of {@link AbstractBuilder} class and used for building the user entity.
+     *
+     * @author Philip Suprun
+     */
     public class UserBuilder extends AbstractBuilder {
         private UserBuilder() {
 

@@ -1,6 +1,6 @@
 package com.suprun.store.dao.impl;
 
-import com.suprun.store.controller.pool.DatabaseConnectionPool;
+import com.suprun.store.entity.controller.pool.DatabaseConnectionPool;
 import com.suprun.store.dao.BaseDao;
 import com.suprun.store.entity.AbstractEntity;
 import com.suprun.store.exception.DaoException;

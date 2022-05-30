@@ -4,6 +4,8 @@
 
 <html>
 <head>
+    <title><cst:localeTag key="login.title" /></title>
+    <jsp:include page="shared/head.html" />
 
     <script src="/static/js/common/set_locale.js"></script>
     <script src="/static/js/common/shared/footer.js"></script>
@@ -18,14 +20,15 @@
         <cst:localeTag key="index.header" />
     </h3>
     <p class="lead"><cst:localeTag key="index.content" /></p>
+    <p class="lead"><cst:localeTag key="index.content1" /></p>
     <ul>
-        <li><cst:localeTag key="index.content1" /></li>
         <li><cst:localeTag key="index.content2" /></li>
         <li><cst:localeTag key="index.content3" /></li>
         <li><cst:localeTag key="index.content4" /></li>
         <li><cst:localeTag key="index.content5" /></li>
+        <li><cst:localeTag key="index.content6" /></li>
     </ul>
-    <p class="lead"><cst:localeTag key="index.content6" /></p>
+    <p class="lead"><cst:localeTag key="index.content7" /></p>
 </main>
 
 <c:if test="${param.emailConfirmationToken}">

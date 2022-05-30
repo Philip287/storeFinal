@@ -1,19 +1,26 @@
 package com.suprun.store.util.impl;
 
+import com.suprun.store.exception.ServiceException;
 import com.suprun.store.util.MailUtil;
 import com.suprun.store.util.TokenUtil;
-import jakarta.mail.Authenticator;
-import jakarta.mail.PasswordAuthentication;
-import jakarta.mail.Session;
+import jakarta.mail.*;
+import jakarta.mail.internet.InternetAddress;
+import jakarta.mail.internet.MimeBodyPart;
+import jakarta.mail.internet.MimeMessage;
+import jakarta.mail.internet.MimeMultipart;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.sql.rowset.serial.SerialException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
+import static com.suprun.store.util.impl.TokenUtilImpl.EMAIL_CLAIM;
+import static com.suprun.store.util.impl.TokenUtilImpl.ID_CLAIM;
 
 public class MailUtilImpl implements MailUtil {
     private static final Logger LOGGER = LogManager.getLogger();
@@ -79,22 +86,73 @@ public class MailUtilImpl implements MailUtil {
     }
 
     @Override
-    public void SendConfirmationMail(long userId, String email, String scheme, String serverName) throws SerialException {
+    public void SendConfirmationMail(long userId, String email, String scheme, String serverName) throws ServiceException {
+        String mailSubject = mailProperties.getProperty(CONFIRMATION_MAIL_SUBJECT_PROPERTY);
+        String bodyTemplate = mailProperties.getProperty(CONFIRMATION_MAIL_BODY_PROPERTY);
+        Map<String, Object> claimsMap = new HashMap<>();
+        claimsMap.put(ID_CLAIM, userId);
+        claimsMap.put(EMAIL_CLAIM, email);
+        String confirmationUrl = CONFIRMATION_MAIL_URL_BLANK + tokenUtil.generateToken(claimsMap);
+        String confirmationLink = scheme + PROTOCOL_DELIMITER + serverName + confirmationUrl;
+
+        String mailBody = String.format(bodyTemplate, confirmationLink);
+        sendMail(email, mailSubject, mailBody);
+    }
+
+    @Override
+    public void sendPasswordChangeMail(String email, String scheme, String serverName) throws ServiceException {
+        String mailSubject = mailProperties.getProperty(ORDER_COMPLETED_MAIL_SUBJECT_PROPERTY);
+        String bodyTemplate = mailProperties.getProperty(ORDER_COMPLETED_MAIL_BODY_PROPERTY);
+        Map<String, Object> claimsMap = new HashMap<>();
+        claimsMap.put(EMAIL_CLAIM, email);
+        String confirmationUrl = PASSWORD_CHANGE_MAIL_URL_BLANK + tokenUtil.generateToken(claimsMap);
+        String confirmationLink = scheme + PROTOCOL_DELIMITER + serverName + confirmationUrl;
+
+        String mailBody = String.format(bodyTemplate, confirmationLink);
+        sendMail(email, mailSubject, mailBody);
 
     }
 
     @Override
-    public void sendPasswordChangeMail(String email, String scheme, String serverName) throws SerialException {
-
+    public void sendOrderInProgressMail(String email, String scheme, String serverName) throws ServiceException {
+        String mailSubject = mailProperties.getProperty(ORDER_COMPLETED_MAIL_SUBJECT_PROPERTY);
+        String bodyTemplate = mailProperties.getProperty(ORDER_COMPLETED_MAIL_BODY_PROPERTY);
+        String mailBody = String.format(bodyTemplate, scheme);
+        sendMail(email, mailSubject, mailBody);
     }
 
     @Override
-    public void sendOrderInProgressMail(String email, String scheme, String serverName) throws SerialException {
-
+    public void sendOrderCompleteMail(String email, String scheme, String serverName) throws ServiceException {
+        String mailSubject = mailProperties.getProperty(ORDER_COMPLETED_MAIL_SUBJECT_PROPERTY);
+        String bodyTemplate = mailProperties.getProperty(ORDER_COMPLETED_MAIL_BODY_PROPERTY);
+        String mailBody = String.format(bodyTemplate, scheme);
+        sendMail(email, mailSubject, mailBody);
     }
 
-    @Override
-    public void sendOrderCompleteMail(String email, String scheme, String serverName) throws SerialException {
+    private void sendMail(String recipient, String mailSubject, String mailBody) throws ServiceException {
+        Message message = new MimeMessage(mailSession);
 
+        try {
+            message.setFrom(new InternetAddress(sender));
+            message.setRecipient(Message.RecipientType.TO, new InternetAddress(recipient));
+            message.setSubject(mailSubject);
+
+            MimeBodyPart mimeBodyPart = new MimeBodyPart();
+            mimeBodyPart.setContent(mailBody, HTML_BODY_TYPE);
+
+            Multipart multipart = new MimeMultipart();
+            multipart.addBodyPart(mimeBodyPart);
+
+            message.setContent(multipart);
+            emailExecutor.execute(() -> {
+                try {
+                    Transport.send(message);
+                } catch (MessagingException e) {
+                    LOGGER.error("Error sending an email", e);
+                }
+            });
+        } catch (MessagingException e) {
+            throw new ServiceException("Error sending an email", e);
+        }
     }
 }

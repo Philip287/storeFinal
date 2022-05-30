@@ -40,6 +40,10 @@ public class UserDaoImpl implements UserDao {
         return instance;
     }
 
+    private UserDaoImpl(){
+
+    }
+
     @Override
     public long insert(User entity) throws DaoException {
         return QueryExecutor.createExecutor().executeInsert(
