@@ -1,6 +1,7 @@
 package com.suprun.store.entity;
 
 import java.math.BigDecimal;
+import java.security.KeyStore;
 import java.util.Objects;
 
 /**
@@ -20,7 +21,7 @@ public class Keyboard extends AbstractEntity {
 
     }
 
-    public KeyboardBuilder builder() {
+    public static KeyboardBuilder builder() {
         return new Keyboard().new KeyboardBuilder();
     }
 

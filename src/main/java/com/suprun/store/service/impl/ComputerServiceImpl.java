@@ -181,23 +181,15 @@ public class ComputerServiceImpl implements ComputerService {
             switch (criteria) {
                 case NONE -> {
                     resultList = computerDao.selectAllForActiveOrder(start, length);
-                    count = computerDao.selectCountAllForActiveOrder(keyword);
+                    count = computerDao.selectCountAllForActiveOrder();
                 }
                 case USER_ID -> {
                     resultList = computerDao.selectByUserIdForActiveOrder(start, length, keyword);
                     count = computerDao.selectCountByUserIdForActiveOrder(keyword);
                 }
-                case ID -> {
-                    resultList = computerDao.selectByIdForActiveOrder(start, length, keyword);
-                    count = computerDao.selectCountByIdForActiveOrder(keyword);
-                }
                 case NAME -> {
                     resultList = computerDao.selectByNameForActiveOrder(start, length, keyword);
                     count = computerDao.selectCountByNameForActiveOrder(keyword);
-                }
-                case ORDER_STATUS -> {
-                    resultList = computerDao.selectByOrderStatusForActiveOrder(start, length, keyword);
-                    count = computerDao.selectCountByOrderStatusForActiveOrder(keyword);
                 }
                 case TOTAL_COST -> {
                     resultList = computerDao.selectByTotalCoastForActiveOrder(start, length, keyword);

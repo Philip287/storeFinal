@@ -64,7 +64,7 @@ public class Computer extends AbstractEntity {
      */
     private long hullId;
     /**
-     * Foreign key to {@link Hdd} entity.
+     * Foreign key to {@link HardDisk} entity.
      */
     private long hddId;
     /**

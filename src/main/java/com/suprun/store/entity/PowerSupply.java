@@ -20,7 +20,7 @@ public class PowerSupply extends AbstractEntity {
 
     }
 
-    public PowerSupplyBuilder build() {
+    public static PowerSupplyBuilder builder() {
         return new PowerSupply().new PowerSupplyBuilder();
     }
 

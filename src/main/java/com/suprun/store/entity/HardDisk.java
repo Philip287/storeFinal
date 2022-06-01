@@ -4,24 +4,24 @@ import java.math.BigDecimal;
 import java.util.Objects;
 
 /**
- * {@code Hdd} class represents a computer hdd entity.
+ * {@code HardDisk} class represents a computer hardDisk entity.
  *
  * @author Philip Suprun
  * @see AbstractEntity
  */
-public class Hdd extends AbstractEntity {
+public class HardDisk extends AbstractEntity {
 
     private String name;
     private BigDecimal price;
     private String description;
     private String picturePath;
 
-    private Hdd() {
+    private HardDisk() {
 
     }
 
-    public static HddBuilder builder() {
-        return new Hdd().new HddBuilder();
+    public static HardDiskBuilder builder() {
+        return new HardDisk().new HardDiskBuilder();
     }
 
     public String getName() {
@@ -52,7 +52,7 @@ public class Hdd extends AbstractEntity {
             return false;
         }
 
-        Hdd hdd = (Hdd) object;
+        HardDisk hdd = (HardDisk) object;
 
         if (!Objects.equals(name, hdd.name)) {
             return false;
@@ -81,7 +81,7 @@ public class Hdd extends AbstractEntity {
 
     @Override
     public String toString() {
-        StringBuilder builder = new StringBuilder("Hdd ");
+        StringBuilder builder = new StringBuilder("Hard disk ");
         builder.append(super.toString()).append(", ");
         builder.append("name = ").append(name).append(", ");
         builder.append("price = ").append(price).append(", ");
@@ -96,44 +96,44 @@ public class Hdd extends AbstractEntity {
      * @author Philip Suprun
      */
 
-    public class HddBuilder extends AbstractBuilder {
+    public class HardDiskBuilder extends AbstractBuilder {
 
-        private HddBuilder() {
+        private HardDiskBuilder() {
 
         }
 
-        public HddBuilder setName(String name) {
-            Hdd.this.name = name;
+        public HardDiskBuilder setName(String name) {
+            HardDisk.this.name = name;
             return this;
         }
 
-        public HddBuilder setPrice(BigDecimal price) {
-            Hdd.this.price = price;
+        public HardDiskBuilder setPrice(BigDecimal price) {
+            HardDisk.this.price = price;
             return this;
         }
 
-        public HddBuilder setDescription(String descriptions) {
-            Hdd.this.description = descriptions;
+        public HardDiskBuilder setDescription(String descriptions) {
+            HardDisk.this.description = descriptions;
             return this;
         }
 
-        public HddBuilder setPicturePath(String picturePath) {
-            Hdd.this.picturePath = picturePath;
+        public HardDiskBuilder setPicturePath(String picturePath) {
+            HardDisk.this.picturePath = picturePath;
             return this;
         }
 
-        public HddBuilder of(Hdd hdd) {
+        public HardDiskBuilder of(HardDisk hdd) {
             super.of(hdd);
-            Hdd.this.name = hdd.name;
-            Hdd.this.price = hdd.price;
-            Hdd.this.description = hdd.description;
-            Hdd.this.picturePath = hdd.picturePath;
+            HardDisk.this.name = hdd.name;
+            HardDisk.this.price = hdd.price;
+            HardDisk.this.description = hdd.description;
+            HardDisk.this.picturePath = hdd.picturePath;
             return this;
         }
 
         @Override
         public AbstractEntity build() {
-            return Hdd.this;
+            return HardDisk.this;
         }
     }
 }

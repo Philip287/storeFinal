@@ -20,7 +20,7 @@ public class Hull extends AbstractEntity {
 
     }
 
-    public HullBuilder builder() {
+    public static HullBuilder builder() {
         return new Hull().new HullBuilder();
     }
 

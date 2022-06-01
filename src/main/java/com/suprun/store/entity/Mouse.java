@@ -20,23 +20,23 @@ public class Mouse extends AbstractEntity {
 
     }
 
-    public void getName(String name) {
-        this.name = name;
+    public String getName() {
+        return name;
     }
 
-    public void getPrice(BigDecimal price) {
-        this.price = price;
+    public BigDecimal getPrice() {
+        return price;
     }
 
-    public void getDescription(String description) {
-        this.description = description;
+    public String getDescription() {
+        return description;
     }
 
-    public void getPicturePath(String picturePath) {
-        this.picturePath = picturePath;
+    public String getPicturePath() {
+        return picturePath;
     }
 
-    public static MouseBuilder build() {
+    public static MouseBuilder builder() {
         return new Mouse().new MouseBuilder();
     }
 

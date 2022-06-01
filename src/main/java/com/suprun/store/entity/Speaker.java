@@ -20,7 +20,7 @@ public class Speaker extends AbstractEntity {
 
     }
 
-    public SpeakerBuilder build() {
+    public static SpeakerBuilder builder() {
         return new Speaker().new SpeakerBuilder();
     }
 
@@ -100,7 +100,7 @@ public class Speaker extends AbstractEntity {
 
         }
 
-        public SpeakerBuilder getName(String name) {
+        public SpeakerBuilder setName(String name) {
             Speaker.this.name = name;
             return this;
         }

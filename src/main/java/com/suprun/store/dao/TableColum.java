@@ -46,11 +46,11 @@ public final class TableColum {
     public static final String PROCESSOR_DESCRIPTION = "description";
 
     // videoCards TABLE
-    public static final String VIDEO_CARDS_ID = "video_card_id";
-    public static final String VIDEO_CARDS_NAME = "name";
-    public static final String VIDEO_CARDS_PRICE = "price";
-    public static final String VIDEO_CARDS_PICTURE_PATH = "picture_path";
-    public static final String VIDEO_CARDS_DESCRIPTION = "description";
+    public static final String VIDEO_CARD_ID = "video_card_id";
+    public static final String VIDEO_CARD_NAME = "name";
+    public static final String VIDEO_CARD_PRICE = "price";
+    public static final String VIDEO_CARD_PICTURE_PATH = "picture_path";
+    public static final String VIDEO_CARD_DESCRIPTION = "description";
 
     //motherboards TABLE
     public static final String MOTHERBOARD_ID = "motherboard_id";
@@ -66,7 +66,7 @@ public final class TableColum {
     public static final String RAM_PICTURE_PATH = "picture_path";
     public static final String RAM_DESCRIPTION = "description";
 
-    //powerSupplys TABLE
+    //powerSupply TABLE
     public static final String POWER_SUPPLY_ID = "power_supply_id";
     public static final String POWER_SUPPLY_NAME = "name";
     public static final String POWER_SUPPLY_PRICE = "price";
@@ -101,7 +101,7 @@ public final class TableColum {
     public static final String MOUSE_PICTURE_PATH = "picture_path";
     public static final String MOUSE_DESCRIPTION = "description";
 
-    //hdds TABLE
+    //hardDisks TABLE
     public static final String HDD_ID = "hdd_id";
     public static final String HDD_NAME = "name";
     public static final String HDD_PRICE = "price";

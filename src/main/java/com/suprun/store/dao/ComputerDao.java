@@ -356,7 +356,7 @@ public interface ComputerDao extends BaseDao<Computer> {
      * @return {@code long} value that represents number of found entities.
      * @throws DaoException if an error occurred while processing the query.
      */
-    long selectCountAllForActiveOrder(String keyword) throws DaoException;
+    long selectCountAllForActiveOrder() throws DaoException;
 
     /**
      * Select multiple {@link Computer} entities with name specified by keyword with active {@link OrderStatus}.
@@ -378,26 +378,6 @@ public interface ComputerDao extends BaseDao<Computer> {
      * @throws DaoException if an error occurred while processing the query.
      */
     long selectCountByNameForActiveOrder(String keyword) throws DaoException;
-
-    /**
-     * Select multiple {@link Computer} entities with order status specified by keyword.
-     *
-     * @param offset  amount of records that will be skipped from start in the query result.
-     * @param length  amount of records that will appear in the query result.
-     * @param keyword specifies what pattern should entity's field match.
-     * @return {@link List} of queried entities.
-     * @throws DaoException if an error occurred while processing the query.
-     */
-    List<Computer> selectByOrderStatusForActiveOrder(int offset, int length, String keyword) throws DaoException;
-
-    /**
-     * Select total count of all stored {@link Computer} entities with order status specified by keyword.
-     *
-     * @param keyword specifies what pattern should entity's field match.
-     * @return {@code long} value that represents number of found entities.
-     * @throws DaoException if an error occurred while processing the query.
-     */
-    long selectCountByOrderStatusForActiveOrder(String keyword) throws DaoException;
 
     /**
      * Select multiple {@link Computer} entities with speaker specified by keyword with active {@link OrderStatus}.
@@ -671,27 +651,6 @@ public interface ComputerDao extends BaseDao<Computer> {
      * @throws DaoException if an error occurred while processing the query.
      */
     long selectCountByUserIdForActiveOrder(String keyword) throws DaoException;
-
-    /**
-     * Select multiple {@link Computer} entities with id specified by keyword with active {@link OrderStatus}.
-     *
-     * @param offset  amount of records that will be skipped from start in the query result.
-     * @param length  amount of records that will appear in the query result.
-     * @param keyword specifies what pattern should entity's field match.
-     * @return {@link List} of queried entities.
-     * @throws DaoException if an error occurred while processing the query.
-     */
-    List<Computer> selectByIdForActiveOrder(int offset, int length, String keyword) throws DaoException;
-
-    /**
-     * Select total count of all stored {@link Computer} entities
-     * with id specified by keyword with active {@link OrderStatus}.
-     *
-     * @param keyword specifies what pattern should entity's field match.
-     * @return {@code long} value that represents number of found entities.
-     * @throws DaoException if an error occurred while processing the query.
-     */
-    long selectCountByIdForActiveOrder(String keyword) throws DaoException;
 
     @Override
     default Computer buildEntityFromResultSet(ResultSet resultSet) throws SQLException {

@@ -20,7 +20,7 @@ public class Ram extends AbstractEntity {
 
     }
 
-    public RamBuilder build() {
+    public static RamBuilder builder() {
         return new Ram().new RamBuilder();
     }
 

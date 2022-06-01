@@ -1,8 +1,10 @@
 package com.suprun.store.service.criteria;
 
+import com.suprun.store.service.HardDiskService;
+
 /**
  * {@code RamFilterCriteria} enum is used to choose a filter strategy
- * in {@link com.suprun.store.service.HddService#filter} method.
+ * in {@link HardDiskService#filter} method.
  *
  * @author Philip Suprun
  */

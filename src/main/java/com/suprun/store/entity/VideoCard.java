@@ -20,7 +20,7 @@ public class VideoCard extends AbstractEntity {
 
     }
 
-    public VideoCardBuilder build() {
+    public static VideoCardBuilder builder() {
         return new VideoCard().new VideoCardBuilder();
     }
 
