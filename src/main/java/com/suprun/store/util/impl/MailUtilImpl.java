@@ -38,7 +38,7 @@ public class MailUtilImpl implements MailUtil {
     private static final String CONFIRMATION_MAIL_URL_BLANK = "controller?command=confirm_email&token=";
 
     private static final String PASSWORD_CHANGE_MAIL_SUBJECT_PROPERTY = "passwordChangeMail.subject";
-    private static final String PASSWORD_CHANGE_MAIL_BODY_PROPERTY = "passwordChangeMAil.body";
+    private static final String PASSWORD_CHANGE_MAIL_BODY_PROPERTY = "passwordChangeMail.body";
     private static final String PASSWORD_CHANGE_MAIL_URL_BLANK = "/controller?command=go_to_password_change_page&token=";
 
     private static final String ORDER_IN_PROGRESS_MAIL_SUBJECT_PROPERTY = "orderInProgressMail.subject";
@@ -55,6 +55,10 @@ public class MailUtilImpl implements MailUtil {
     private static final TokenUtil tokenUtil = TokenUtilImpl.getInstance();
 
     private static MailUtil instance;
+
+    private MailUtilImpl() {
+
+    }
 
     static {
         ClassLoader classLoader = MailUtilImpl.class.getClassLoader();
@@ -101,8 +105,8 @@ public class MailUtilImpl implements MailUtil {
 
     @Override
     public void sendPasswordChangeMail(String email, String scheme, String serverName) throws ServiceException {
-        String mailSubject = mailProperties.getProperty(ORDER_COMPLETED_MAIL_SUBJECT_PROPERTY);
-        String bodyTemplate = mailProperties.getProperty(ORDER_COMPLETED_MAIL_BODY_PROPERTY);
+        String mailSubject = mailProperties.getProperty(PASSWORD_CHANGE_MAIL_SUBJECT_PROPERTY);
+        String bodyTemplate = mailProperties.getProperty(PASSWORD_CHANGE_MAIL_BODY_PROPERTY);
         Map<String, Object> claimsMap = new HashMap<>();
         claimsMap.put(EMAIL_CLAIM, email);
         String confirmationUrl = PASSWORD_CHANGE_MAIL_URL_BLANK + tokenUtil.generateToken(claimsMap);
@@ -114,18 +118,18 @@ public class MailUtilImpl implements MailUtil {
     }
 
     @Override
-    public void sendOrderInProgressMail(String email, String scheme, String serverName) throws ServiceException {
-        String mailSubject = mailProperties.getProperty(ORDER_COMPLETED_MAIL_SUBJECT_PROPERTY);
-        String bodyTemplate = mailProperties.getProperty(ORDER_COMPLETED_MAIL_BODY_PROPERTY);
-        String mailBody = String.format(bodyTemplate, scheme);
+    public void sendOrderInProgressMail(String email, long orderId, String scheme, String serverName) throws ServiceException {
+        String mailSubject = mailProperties.getProperty(ORDER_IN_PROGRESS_MAIL_SUBJECT_PROPERTY);
+        String bodyTemplate = mailProperties.getProperty(ORDER_IN_PROGRESS_MAIL_BODY_PROPERTY);
+        String mailBody = String.format(bodyTemplate, orderId);
         sendMail(email, mailSubject, mailBody);
     }
 
     @Override
-    public void sendOrderCompleteMail(String email, String scheme, String serverName) throws ServiceException {
+    public void sendOrderCompleteMail(String email, long orderId, String scheme, String serverName) throws ServiceException {
         String mailSubject = mailProperties.getProperty(ORDER_COMPLETED_MAIL_SUBJECT_PROPERTY);
         String bodyTemplate = mailProperties.getProperty(ORDER_COMPLETED_MAIL_BODY_PROPERTY);
-        String mailBody = String.format(bodyTemplate, scheme);
+        String mailBody = String.format(bodyTemplate, orderId);
         sendMail(email, mailSubject, mailBody);
     }
 

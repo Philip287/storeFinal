@@ -2,11 +2,11 @@ package com.suprun.store.service.impl;
 
 import com.suprun.store.dao.UserDao;
 import com.suprun.store.dao.impl.UserDaoImpl;
+import com.suprun.store.service.UserService;
+import com.suprun.store.service.criteria.UserFilterCriteria;
 import com.suprun.store.entity.User;
 import com.suprun.store.exception.DaoException;
 import com.suprun.store.exception.ServiceException;
-import com.suprun.store.service.UserService;
-import com.suprun.store.service.criteria.UserFilterCriteria;
 import com.suprun.store.util.HashingUtil;
 import com.suprun.store.util.impl.HashingUtilImpl;
 import org.apache.commons.lang3.tuple.Pair;

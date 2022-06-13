@@ -6,10 +6,10 @@ import com.suprun.store.service.impl.UserServiceImpl;
 import com.suprun.store.util.ValidationUtil;
 import org.apache.commons.lang3.tuple.Pair;
 
-import static com.suprun.store.entity.controller.command.PagePath.AMPERSAND;
-import static com.suprun.store.entity.controller.command.PagePath.EQUALS_SIGN;
-import static com.suprun.store.entity.controller.command.RequestAttribute.DUPLICATE_EMAIL_ERROR;
-import static com.suprun.store.entity.controller.command.RequestAttribute.DUPLICATE_LOGIN_ERROR;
+import static com.suprun.store.controller.command.PagePath.AMPERSAND;
+import static com.suprun.store.controller.command.PagePath.EQUALS_SIGN;
+import static com.suprun.store.controller.command.RequestAttribute.DUPLICATE_EMAIL_ERROR;
+import static com.suprun.store.controller.command.RequestAttribute.DUPLICATE_LOGIN_ERROR;
 
 
 public class ValidationUtilImpl implements ValidationUtil {

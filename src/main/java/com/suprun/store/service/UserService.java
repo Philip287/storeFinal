@@ -1,10 +1,10 @@
 package com.suprun.store.service;
 
+import com.suprun.store.service.criteria.UserFilterCriteria;
 import com.suprun.store.entity.User;
 import com.suprun.store.entity.User.UserRole;
 import com.suprun.store.entity.User.UserStatus;
 import com.suprun.store.exception.ServiceException;
-import com.suprun.store.service.criteria.UserFilterCriteria;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.List;

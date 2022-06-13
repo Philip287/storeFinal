@@ -11,6 +11,10 @@ public class ImagePathValidator implements Validator<Part> {
     private static final String JPEG_MIME = "image/jpeg";
     private static final String PNG_MIME = "image/png";
 
+    private ImagePathValidator(){
+
+    }
+
     public static Validator<Part> getInstance() {
         if (instance == null) {
             instance = new ImagePathValidator();

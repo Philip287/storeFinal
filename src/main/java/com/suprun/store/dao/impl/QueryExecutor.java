@@ -1,6 +1,6 @@
 package com.suprun.store.dao.impl;
 
-import com.suprun.store.entity.controller.pool.DatabaseConnectionPool;
+import com.suprun.store.controller.pool.DatabaseConnectionPool;
 import com.suprun.store.dao.BaseDao;
 import com.suprun.store.entity.AbstractEntity;
 import com.suprun.store.exception.DaoException;
@@ -26,10 +26,10 @@ public class QueryExecutor {
     private final boolean transaction;
     private boolean destroyed;
 
-    private QueryExecutor(boolean transcription) throws DatabaseConnectionException, SQLException {
-        this.transaction = transcription;
+    private QueryExecutor(boolean transaction) throws DatabaseConnectionException, SQLException {
+        this.transaction = transaction;
         connection = DatabaseConnectionPool.getInstance().getConnection();
-        if (transcription) {
+        if (transaction) {
             connection.setAutoCommit(false);
         }
     }
@@ -82,7 +82,6 @@ public class QueryExecutor {
             }
             return Optional.ofNullable(entity);
         } catch (SQLException e) {
-            destroyExecutor();
             throw new DaoException(" ", e);
         } finally {
             if (!transaction && !destroyed) {
@@ -112,7 +111,6 @@ public class QueryExecutor {
             }
             return entityList;
         } catch (SQLException e) {
-            destroyExecutor();
             throw new DaoException(e);
         } finally {
             if (!transaction && !destroyed) {
@@ -139,7 +137,6 @@ public class QueryExecutor {
             }
             return count;
         } catch (SQLException e) {
-            destroyExecutor();
             throw new DaoException(e);
         } finally {
             if (!transaction && !destroyed) {
@@ -171,7 +168,6 @@ public class QueryExecutor {
                     throw new DaoException(ex);
                 }
             }
-            destroyExecutor();
             throw new DaoException(e);
         } finally {
             if (!transaction && !destroyed) {
@@ -201,7 +197,6 @@ public class QueryExecutor {
                     throw new DaoException(exception);
                 }
             }
-            destroyExecutor();
             throw new DaoException(e);
         } finally {
             if (!transaction && !destroyed) {

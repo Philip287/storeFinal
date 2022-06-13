@@ -7,7 +7,7 @@
 
     <tag>
         <name>localeTag</name>
-        <tag-class>com.suprun.store.entity.controller.tag.LocaleTag</tag-class>
+        <tag-class>com.suprun.store.controller.tag.LocaleTag</tag-class>
         <body-content>empty</body-content>
         <attribute>
             <name>key</name>

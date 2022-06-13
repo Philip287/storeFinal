@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.Objects;
 
 /**
- * {@code User} class represents a user entity.
+ * {@code Eser} class represents a user entity.
  *
  * @author Philip Suprun
  * @see AbstractEntity
