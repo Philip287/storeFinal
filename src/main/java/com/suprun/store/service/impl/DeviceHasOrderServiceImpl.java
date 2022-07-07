@@ -8,13 +8,18 @@ import com.suprun.store.exception.ServiceException;
 import com.suprun.store.service.DeviceHasOrderService;
 import com.suprun.store.service.criteria.DeviceHasOrderFilterCriteria;
 import org.apache.commons.lang3.tuple.Pair;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 import java.util.Optional;
 
+
 import static com.suprun.store.entity.DeviceHasOrder.builder;
 
 public class DeviceHasOrderServiceImpl implements DeviceHasOrderService {
+
+    private static final Logger LOGGER = LogManager.getLogger();
 
     private static DeviceHasOrderService instance;
 
@@ -82,7 +87,7 @@ public class DeviceHasOrderServiceImpl implements DeviceHasOrderService {
                     resultList = deviceHasOrderDao.selectAll(start, length);
                     count = deviceHasOrderDao.selectCountAll();
                 }
-                case ID_ORDER -> {
+                case ID -> {
                     resultList = deviceHasOrderDao.selectById(start, length, keyword);
                     count = deviceHasOrderDao.selectCountById(keyword);
                 }
@@ -98,7 +103,8 @@ public class DeviceHasOrderServiceImpl implements DeviceHasOrderService {
             }
             return Pair.of(count, resultList);
         } catch (DaoException e) {
-            throw new ServiceException(e);
+            LOGGER.error("Exception in filter DeviceHasOrderServiceImpl", e);
+            throw new ServiceException("Exception in filter DeviceHasOrderServiceImpl", e);
         }
     }
 }

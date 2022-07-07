@@ -25,10 +25,9 @@ public class UpdateOrderCommand implements Command {
 
     @Override
     public CommandResult execute(HttpServletRequest request) {
-        String name = request.getParameter(NAME);
-        OrderStatus orderStatus = Order.OrderStatus.valueOf(request.getParameter(ORDER_STATUS));
-        long userId = Long.parseLong(request.getParameter(ID_USER));
         long entityId = Long.parseLong(request.getParameter(ENTITY_ID));
+        long userId = Long.parseLong(request.getParameter(ID_USER));
+        OrderStatus orderStatus = OrderStatus.valueOf(request.getParameter(ORDER_STATUS));
 
         try {
             Optional<Order> optionalOrder = orderService.findById(entityId);
@@ -41,7 +40,6 @@ public class UpdateOrderCommand implements Command {
                 orderService.update(updateOrder);
                 return CommandResult.createRedirectResult(ADMIN_ORDERS_URL);
             } else {
-                LOGGER.error("Requested order not found, id = " + entityId);
                 return CommandResult.createErrorResult(SC_NOT_FOUND);
             }
         } catch (ServiceException e) {

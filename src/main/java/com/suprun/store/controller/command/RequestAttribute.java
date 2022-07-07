@@ -1,5 +1,10 @@
 package com.suprun.store.controller.command;
 
+/**
+ * {@code RequestAttribute} class contains constant strings that are stored as {@link java.net.http.HttpRequest} attributes.
+ *
+ * @author Philip Suprun
+ */
 public final class RequestAttribute {
     public static final String COMMAND = "command";
     public static final String EMAIL = "email";
@@ -44,6 +49,13 @@ public final class RequestAttribute {
     public static final String ORDER_STATUS = "orderStatus";
     public static final String ID_USER = "userId";
     public static final String ORDER = "order";
+    public static final String NUMBER = "number";
+    public static final String DEVICE_ID = "deviceId";
+    public static final String ORDER_ID = "orderId";
+    public static final String DEVICE_HAS_ORDER = "deviceHasOrder";
+    public static final String ACTIVE_ORDER = "activeOrder";
+    public static final String JSON_CARD = "jsonCard";
+
 
     private RequestAttribute() {
 

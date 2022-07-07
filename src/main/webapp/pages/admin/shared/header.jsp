@@ -3,37 +3,25 @@
 <%@ taglib uri="customshop-tags" prefix="cst" %>
 
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light" style="padding-top: 70px">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
         <ul class="nav navbar-nav me-auto ms-auto">
             <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/controller?command=go_to_users_page" role="button" class="btn btn-primary me-5">
-                    <cst:localeTag key="admin.users" />
+                <a href="${pageContext.request.contextPath}/controller?command=go_to_users_page" role="button"
+                   class="btn btn-primary me-5">
+                    <cst:localeTag key="admin.users"/>
                 </a>
             </li>
             <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/controller?command=go_to_woods_page" role="button" class="btn btn-primary me-5">
-                    <cst:localeTag key="admin.woods" />
+                <a href="${pageContext.request.contextPath}/controller?command=go_to_orders_page" role="button"
+                   class="btn btn-primary me-5">
+                    <cst:localeTag key="admin.orders"/>
                 </a>
             </li>
-            <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/controller?command=go_to_bodies_page" role="button" class="btn btn-primary me-5">
-                    <cst:localeTag key="admin.bodies" />
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/controller?command=go_to_necks_page" role="button" class="btn btn-primary me-5">
-                    <cst:localeTag key="admin.necks" />
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/controller?command=go_to_pickups_page" role="button" class="btn btn-primary me-5">
-                    <cst:localeTag key="admin.pickups" />
-                </a>
-            </li>
-            <li class="nav-item"i>
-                <a href="${pageContext.request.contextPath}/controller?command=go_to_guitars_page" role="button" class="btn btn-primary me-5">
-                    <cst:localeTag key="admin.guitars" />
+            <li class="nav-item" i>
+                <a href="${pageContext.request.contextPath}/controller?command=go_to_devices_page" role="button"
+                   class="btn btn-primary me-5">
+                    <cst:localeTag key="admin.devices"/>
                 </a>
             </li>
         </ul>

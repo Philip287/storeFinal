@@ -7,13 +7,13 @@
     <title><cst:localeTag key="register.title" /></title>
     <jsp:include page="shared/head.html" />
 
-    <script src="/static/js/common/set_locale.js"></script>
-    <script src="/static/js/common/shared/footer.js"></script>
+    <script src="./static/js/common/set_locale.js"></script>
+    <script src="./static/js/common/shared/footer.js"></script>
 </head>
 
-<jsp:include page="shared/header.jsp" />
-
 <body>
+
+<jsp:include page="shared/header.jsp" />
 
     <main role="main" class="container common-main-form">
         <h3 class="row justify-content-center mb-4">
@@ -68,8 +68,8 @@
         </c:if>
     </main>
 
-</body>
-
 <jsp:include page="shared/footer.jsp" />
+
+</body>
 
 </html>

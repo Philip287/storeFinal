@@ -45,7 +45,6 @@ public class RegisterCommand implements Command {
             boolean valid = emailValidator.validate(email)
                     && loginValidator.validate(login)
                     && passwordValidator.validate(password);
-
             if (valid) {
                 Pair<Boolean, String> pair = validationUtil.isUserDuplicate(email, login, REGISTER_URL);
                 if (pair.getLeft()) {
@@ -62,7 +61,7 @@ public class RegisterCommand implements Command {
                 return CommandResult.createRedirectResult(redirectUrl);
             }
         } catch (ServiceException e) {
-            LOGGER.error("An error occurred during register command execution" + e);
+            LOGGER.error("An error occurred during register command execution", e);
             return CommandResult.createErrorResult(SC_INTERNAL_SERVER_ERROR);
         }
     }

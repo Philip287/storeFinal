@@ -1,6 +1,5 @@
 package com.suprun.store.entity;
 
-
 /**
  * {@code DeviceHasOrder} class represents a DeviceHaOrder entity.
  *

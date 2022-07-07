@@ -4,8 +4,6 @@ import com.suprun.store.dao.UserDao;
 import com.suprun.store.entity.User;
 import com.suprun.store.exception.DaoException;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
@@ -132,9 +130,9 @@ public class UserDaoImpl implements UserDao {
             WHERE user_id = ?;
             """;
 
-    private static final String DELETE_COMPUTERS_BY_USER = """
-            UPDATE computers
-            SET deleted = 1
+    private static final String DELETE_ORDER_BY_USER = """
+            UPDATE orders
+            SET deleted = 1            
             WHERE id_user = ?;
             """;
 
@@ -143,10 +141,6 @@ public class UserDaoImpl implements UserDao {
             instance = new UserDaoImpl();
         }
         return instance;
-    }
-
-    private UserDaoImpl() {
-
     }
 
     @Override
@@ -180,7 +174,7 @@ public class UserDaoImpl implements UserDao {
     public void delete(long id) throws DaoException {
         QueryExecutor executor = QueryExecutor.createTransactionExecutor();
         executor.executeUpdateOrDelete(DELETE, id);
-        executor.executeUpdateOrDelete(DELETE_COMPUTERS_BY_USER, id);
+        executor.executeUpdateOrDelete(DELETE_ORDER_BY_USER, id);
         executor.commit();
     }
 

@@ -40,6 +40,7 @@ public class LoginCommand implements Command {
 
                 User.UserRole role = user.getRole();
                 User.UserStatus status = user.getStatus();
+
                 switch (status) {
                     case NOT_CONFIRMED -> {
                         session.setAttribute(USER_ROLE, NOT_CONFIRMED);
@@ -50,11 +51,12 @@ public class LoginCommand implements Command {
                         return CommandResult.createRedirectResult(INDEX_URL);
                     }
                     case DELETED -> {
-                        String redirectUrl = LOGIN_URL + AMPERSAND + LOGIN_ERROR + EQUALS_SIGN + true;
-                        return CommandResult.createErrorResult(SC_INTERNAL_SERVER_ERROR);
+                        String redirectUrl = LOGIN_URL
+                                + AMPERSAND + LOGIN_ERROR + EQUALS_SIGN + true;
+                        return CommandResult.createRedirectResult(redirectUrl);
                     }
                     default -> {
-                        LOGGER.error("Invalid user status: " + status);
+                        LOGGER.error("Invalid user status: ", status);
                         return CommandResult.createErrorResult(SC_INTERNAL_SERVER_ERROR);
                     }
                 }

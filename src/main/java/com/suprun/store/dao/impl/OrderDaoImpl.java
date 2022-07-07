@@ -25,13 +25,13 @@ public class OrderDaoImpl implements OrderDao {
     private static final String DELETE = """
             UPDATE orders
             SET deleted = 1
-            WHERE order_id = ?;-+
+            WHERE order_id = ?;
             """;
 
     private static final String SELECT_BY_ID = """
             SELECT order_id, order_status, id_user
             FROM orders
-            WHERE order_id = ?;
+            WHERE order_id = ? AND deleted <> 1;
             """;
 
     private static final String SELECT_MULTIPLE_BY_ID = """
@@ -51,7 +51,7 @@ public class OrderDaoImpl implements OrderDao {
     private static final String SELECT_ALL = """
             SELECT order_id, order_status, id_user
             FROM orders
-            WHERE deleted <> 1;
+            WHERE deleted <> 1
             ORDER BY order_id
             LIMIT ?, ?;
             """;
@@ -116,10 +116,6 @@ public class OrderDaoImpl implements OrderDao {
             FROM orders
             WHERE deleted <> 1 AND order_status <> 'COMPLETED';
             """;
-
-    private OrderDaoImpl() {
-
-    }
 
     public static OrderDao getInstance() {
         if (instance == null) {

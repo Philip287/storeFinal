@@ -2,8 +2,7 @@ package com.suprun.store.service.criteria;
 
 /**
  * {@code DeviceFilterCriteria} enum is used to choose a filter strategy
- * in {@link com.suprun.store.service.DeviceService#filter} and
- * {@link com.suprun.store.service.DeviceService#filterForActiveOrder} methods.
+ * in {@link com.suprun.store.service.DeviceService#filter}
  *
  * @author Philip Suprun
  */

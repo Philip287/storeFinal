@@ -2,6 +2,7 @@ package com.suprun.store.controller.listener;
 
 import com.suprun.store.controller.command.AppRole;
 import com.suprun.store.controller.command.SessionAttribute;
+import jakarta.servlet.annotation.WebListener;
 import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.HttpSessionEvent;
 import jakarta.servlet.http.HttpSessionListener;
@@ -12,6 +13,7 @@ import jakarta.servlet.http.HttpSessionListener;
  *
  * @author Philip Suprun
  */
+@WebListener
 public class HTTPSessionListenerImpl implements HttpSessionListener {
 
     @Override

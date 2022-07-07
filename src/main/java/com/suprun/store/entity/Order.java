@@ -10,8 +10,6 @@ import java.util.Objects;
  */
 public class Order extends AbstractEntity {
 
-    // FIXME: 03/06/2022
-
     /**
      * Enum containing order status of the order.
      */
@@ -56,8 +54,7 @@ public class Order extends AbstractEntity {
         }
 
         Order order = (Order) object;
-        return super.equals(userId == order.userId)
-                && Objects.equals(order.orderStatus, orderStatus);
+        return Objects.equals(order.orderStatus, orderStatus)&&(userId == order.userId);
     }
 
     @Override

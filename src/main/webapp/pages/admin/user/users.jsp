@@ -7,8 +7,8 @@
     <title><cst:localeTag key="admin.users.title" /></title>
     <jsp:include page="../shared/head.html" />
 
-    <script src="/static/js/admin/user/users.js"></script>
-    <script src="/static/js/common/shared/footer.js"></script>
+    <script src="./static/js/admin/user/usersJs.js"></script>
+    <script src="./static/js/common/shared/footer.js"></script>
 </head>
 
 <jsp:include page="../../common/shared/header.jsp" />
@@ -21,7 +21,7 @@
       data-login="<cst:localeTag key="admin.users.login" />"
       data-role="<cst:localeTag key="admin.users.role" />"
       data-admin="<cst:localeTag key="admin.users.role.admin" />"
-      data-maker="<cst:localeTag key="admin.users.role.maker" />"
+      data-manager="<cst:localeTag key="admin.users.role.manager" />"
       data-client="<cst:localeTag key="admin.users.role.client" />"
       data-status="<cst:localeTag key="admin.users.status" />"
       data-confirmed="<cst:localeTag key="admin.users.status.confirmed" />"

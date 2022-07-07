@@ -39,18 +39,83 @@
                                     <cst:localeTag key="index.admin"/>
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a href="${pageContext.request.contextPath}/controller?command=go_to_my_orders_page"
+                                   role="button" class="btn btn-primary m-1">
+                                    <cst:localeTag key="index.order"/>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="${pageContext.request.contextPath}/controller?command=go_to_products_catalog_page"
+                                   role="button" class="btn btn-primary m-1">
+                                    <cst:localeTag key="user.device.catalog"/>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="${pageContext.request.contextPath}/controller?command=go_to_card_page"
+                                   role="button" class="btn btn-primary m-1">
+                                    <cst:localeTag key="index.card"/>
+                                </a>
+                                <span class="count">0</span>
+                            </li>
                         </ul>
                     </c:if>
 
-                    <%--maker--%>
+                    <%--manager--%>
                     <c:if test="${sessionScope.userRole.ordinal() == 1}">
                         <ul class="nav navbar-nav">
+                            <li class="nav-item">
+                                <a href="${pageContext.request.contextPath}/controller?command=go_to_orders_page"
+                                   role="button" class="btn btn-primary m-1">
+                                    <cst:localeTag key="index.order"/>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="${pageContext.request.contextPath}/controller?command=go_to_my_orders_page"
+                                   role="button" class="btn btn-primary m-1">
+                                    <cst:localeTag key="index.order"/>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="${pageContext.request.contextPath}/controller?command=go_to_products_catalog_page"
+                                   role="button" class="btn btn-primary m-1">
+                                    <cst:localeTag key="user.device.catalog"/>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="${pageContext.request.contextPath}/controller?command=go_to_card_page"
+                                   role="button" class="btn btn-primary m-1">
+                                    <cst:localeTag key="index.card"/>
+                                </a>
+                                <span class="count">0</span>
+                            </li>
                         </ul>
                     </c:if>
 
                     <%--client--%>
-
-
+                    <c:if test="${sessionScope.userRole.ordinal() == 2}">
+                        <ul class="nav navbar-nav">
+                            <li class="nav-item">
+                                <a href="${pageContext.request.contextPath}/controller?command=go_to_my_orders_page"
+                                   role="button" class="btn btn-primary m-1">
+                                    <cst:localeTag key="index.order"/>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="${pageContext.request.contextPath}/controller?command=go_to_products_catalog_page"
+                                   role="button" class="btn btn-primary m-1">
+                                    <cst:localeTag key="user.device.catalog"/>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="${pageContext.request.contextPath}/controller?command=go_to_card_page"
+                                   role="button" class="btn btn-primary m-1">
+                                    <cst:localeTag key="index.card"/>
+                                </a>
+                                <span class="count">0</span>
+                            </li>
+                        </ul>
+                    </c:if>
                     <ul class="nav navbar-nav navbar-right">
                         <li class="nav-item">
                             <a href="${pageContext.request.contextPath}/controller?command=logout" class="nav-link">
@@ -68,4 +133,5 @@
             </c:choose>
         </div>
     </nav>
+    <span onclick="javascript:history.go(-1)" class="back-link"><cst:localeTag key="index.back"/></span>
 </header>

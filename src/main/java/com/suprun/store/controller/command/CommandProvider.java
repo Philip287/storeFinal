@@ -1,7 +1,13 @@
 package com.suprun.store.controller.command;
 
 import com.suprun.store.controller.command.impl.*;
+import com.suprun.store.controller.command.impl.admin.device.*;
+
+import com.suprun.store.controller.command.impl.admin.order.*;
 import com.suprun.store.controller.command.impl.admin.user.*;
+import com.suprun.store.controller.command.impl.ajax.GetDevicesCommand;
+import com.suprun.store.controller.command.impl.ajax.GetDevicesHasOrdersCommand;
+import com.suprun.store.controller.command.impl.ajax.GetOrdersCommand;
 import com.suprun.store.controller.command.impl.ajax.GetUsersCommand;
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.logging.log4j.LogManager;
@@ -19,8 +25,12 @@ import static com.suprun.store.controller.command.AppRole.*;
  * @author Philip Suprun
  */
 public class CommandProvider {
-    public static final Logger logger = LogManager.getLogger();
+    public static final Logger LOGGER = LogManager.getLogger();
     private static final Map<CommandType, Pair<Command, Set<AppRole>>> commandMap = new EnumMap<>(CommandType.class);
+
+    private CommandProvider(){
+
+    }
 
     static {
         // GoTo commands
@@ -41,7 +51,30 @@ public class CommandProvider {
         commandMap.put(CommandType.GO_TO_FORGOT_PASSWORD_PAGE, Pair.of(new GoToForgotPasswordPageCommand(),
                 new HashSet<>(Collections.singletonList(GUEST))));
         commandMap.put(CommandType.GO_TO_PASSWORD_CHANGE_PAGE, Pair.of(new GoToPasswordChangePageCommand(),
-                new HashSet<>(Collections.singletonList(GUEST))));
+                new HashSet<>(Arrays.asList(CLIENT, MANAGER, ADMIN))));
+        commandMap.put(CommandType.GO_TO_DEVICES_PAGE, Pair.of(new GoToDevicesPageCommand(),
+                new HashSet<>(Arrays.asList(CLIENT, MANAGER, ADMIN))));
+        commandMap.put(CommandType.GO_TO_PRODUCTS_CATALOG_PAGE, Pair.of(new GoToProductsCatalogPage(),
+                new HashSet<>(Arrays.asList(CLIENT, MANAGER, ADMIN))));
+        commandMap.put(CommandType.GO_TO_CREATE_DEVICE_PAGE, Pair.of(new GoToCreateDevicePageCommand(),
+                new HashSet<>(Arrays.asList(MANAGER, ADMIN))));
+        commandMap.put(CommandType.GO_TO_DEVICE_PAGE, Pair.of(new GoToDevicePageCommand(),
+                new HashSet<>(Arrays.asList(CLIENT, MANAGER, ADMIN))));
+        commandMap.put(CommandType.GO_TO_EDIT_DEVICE_PAGE, Pair.of(new GoToEditDevicePageCommand(),
+                new HashSet<>(Arrays.asList(MANAGER, ADMIN))));
+        commandMap.put(CommandType.GO_TO_ORDERS_PAGE, Pair.of(new GoToOrdersPageCommand(),
+                new HashSet<>(Arrays.asList(MANAGER, ADMIN))));
+        commandMap.put(CommandType.GO_TO_ORDER_PAGE, Pair.of(new GoToOrderPageCommand(),
+                new HashSet<>(Arrays.asList(CLIENT, MANAGER, ADMIN))));
+        commandMap.put(CommandType.GO_TO_CREATE_ORDER_PAGE, Pair.of(new GoToCreateOrderPageCommand(),
+                new HashSet<>(Arrays.asList(MANAGER, ADMIN))));
+        commandMap.put(CommandType.GO_TO_EDIT_ORDER_PAGE, Pair.of(new GoToEditOrderPageCommand(),
+                new HashSet<>(Arrays.asList(MANAGER, ADMIN))));
+        commandMap.put(CommandType.GO_TO_MY_ORDERS_PAGE, Pair.of(new GoToMyOrdersPageCommand(),
+                new HashSet<>(Arrays.asList(CLIENT, MANAGER, ADMIN))));
+        commandMap.put(CommandType.GO_TO_CARD_PAGE, Pair.of(new GoToCardPageCommand(),
+                new HashSet<>(Arrays.asList(CLIENT, MANAGER, ADMIN))));
+
         // other commands
         commandMap.put(CommandType.REGISTER, Pair.of(new RegisterCommand(),
                 new HashSet<>(Collections.singletonList(GUEST))));
@@ -52,7 +85,7 @@ public class CommandProvider {
         commandMap.put(CommandType.CONFIRM_EMAIL, Pair.of(new ConfirmEmailCommand(),
                 new HashSet<>(Arrays.asList(GUEST, NOT_CONFIRMED, CLIENT, MANAGER, ADMIN))));
         commandMap.put(CommandType.GET_USERS, Pair.of(new GetUsersCommand(),
-                new HashSet<>(Arrays.asList(CLIENT, MANAGER, ADMIN))));
+                new HashSet<>(Arrays.asList(MANAGER, ADMIN))));
         commandMap.put(CommandType.CREATE_USER, Pair.of(new CreateUserCommand(),
                 new HashSet<>(Collections.singletonList(ADMIN))));
         commandMap.put(CommandType.UPDATE_USER, Pair.of(new UpdateUserCommand(),
@@ -67,6 +100,24 @@ public class CommandProvider {
                 new HashSet<>(Arrays.asList(GUEST, NOT_CONFIRMED))));
         commandMap.put(CommandType.UPDATE_PROFILE, Pair.of(new UpdateProfileCommand(),
                 new HashSet<>(Arrays.asList(NOT_CONFIRMED, CLIENT, MANAGER, ADMIN))));
+        commandMap.put(CommandType.GET_DEVICES, Pair.of(new GetDevicesCommand(),
+                new HashSet<>(Arrays.asList(CLIENT, MANAGER, ADMIN))));
+        commandMap.put(CommandType.CREATE_DEVICE, Pair.of(new CreateDeviceCommand(),
+                new HashSet<>(Arrays.asList(MANAGER, ADMIN))));
+        commandMap.put(CommandType.UPDATE_DEVICE, Pair.of(new UpdateDeviceCommand(),
+                new HashSet<>(Arrays.asList(MANAGER, ADMIN))));
+        commandMap.put(CommandType.DELETE_DEVICE, Pair.of(new DeleteDeviceCommand(),
+                new HashSet<>(Arrays.asList(MANAGER, ADMIN))));
+        commandMap.put(CommandType.GET_ORDERS, Pair.of(new GetOrdersCommand(),
+                new HashSet<>(Arrays.asList(CLIENT, MANAGER, ADMIN))));
+        commandMap.put(CommandType.CREATE_ORDER_AND_DEVICE_HAS_ORDER, Pair.of(new CreateOrderAndDeviceHasOrderCommand(),
+                new HashSet<>(Arrays.asList(CLIENT, MANAGER, ADMIN))));
+        commandMap.put(CommandType.UPDATE_ORDER, Pair.of(new UpdateOrderCommand(),
+                new HashSet<>(Arrays.asList(MANAGER, ADMIN))));
+        commandMap.put(CommandType.DELETE_ORDER, Pair.of(new DeleteOrderCommand(),
+                new HashSet<>(Arrays.asList(MANAGER, ADMIN))));
+        commandMap.put(CommandType.GET_DEVICES_HAS_ORDERS, Pair.of(new GetDevicesHasOrdersCommand(),
+                new HashSet<>(Arrays.asList(CLIENT, MANAGER, ADMIN))));
     }
 
     /**
@@ -80,7 +131,7 @@ public class CommandProvider {
         try {
             type = CommandType.valueOf(command.toUpperCase());
         } catch (IllegalArgumentException e) {
-            logger.error("Unknown command type", e);
+            LOGGER.error("Unknown command type ", e);
             return Optional.empty();
         }
         return Optional.ofNullable(commandMap.get(type));

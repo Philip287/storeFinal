@@ -1,7 +1,9 @@
-function fetchGuitar(id, callback, async = true) {
+let rew = "/Gradle___com_suprun___store_1_0_SNAPSHOT_war";
+
+function fetchOrder(id, callback, async = true) {
     $.ajax({
         method: 'GET',
-        url: '/controller?command=get_guitars',
+        url: rew + '/controller?command=get_orders',
         data: {
             id: id,
             requestType: 'FETCH'
@@ -17,10 +19,10 @@ function fetchGuitar(id, callback, async = true) {
     });
 }
 
-function fetchBody(id, callback, async = true) {
+function fetchDevice(id, callback, async = true) {
     $.ajax({
         method: 'GET',
-        url: '/controller?command=get_bodies',
+        url: rew + '/controller?command=get_devices',
         data: {
             id: id,
             requestType: 'FETCH'
@@ -36,67 +38,11 @@ function fetchBody(id, callback, async = true) {
     });
 }
 
-function fetchNeck(id, callback, async = true) {
-    $.ajax({
-        method: 'GET',
-        url: '/controller?command=get_necks',
-        data: {
-            id: id,
-            requestType: 'FETCH'
-        },
-        async: async,
-        success: function (response) {
-            let data = JSON.parse(response);
-
-            if (data) {
-                callback(data.entity);
-            }
-        }
-    });
-}
-
-function fetchPickup(id, callback, async = true) {
-    $.ajax({
-        method: 'GET',
-        url: '/controller?command=get_pickups',
-        data: {
-            id: id,
-            requestType: 'FETCH'
-        },
-        async: async,
-        success: function (response) {
-            let data = JSON.parse(response);
-
-            if (data) {
-                callback(data.entity);
-            }
-        }
-    });
-}
-
-function fetchWood(id, callback, async = true) {
-    $.ajax({
-        method: 'GET',
-        url: '/controller?command=get_woods',
-        data: {
-            id: id,
-            requestType: 'FETCH'
-        },
-        async: async,
-        success: function (response) {
-            let data = JSON.parse(response);
-
-            if (data) {
-                callback(data.entity);
-            }
-        }
-    });
-}
 
 function fetchUser(id, callback, async = true) {
     $.ajax({
         method: 'GET',
-        url: '/controller?command=get_users',
+        url: rew + '/controller?command=get_users',
         data: {
             id: id,
             requestType: 'FETCH'
@@ -104,7 +50,44 @@ function fetchUser(id, callback, async = true) {
         async: async,
         success: function (response) {
             let data = JSON.parse(response);
+            if (data) {
+                callback(data.entity);
+            }
+        }
+    });
+}
 
+function fetchDeviceHasOrder(id, callback, async = true) {
+    $.ajax({
+        method: 'GET',
+        url: rew + '/controller?command=get_devices_has_orders',
+        data: {
+            id: id,
+            requestType: 'FETCH'
+        },
+        async: async,
+        success: function (response) {
+            let data = JSON.parse(response);
+            console.log(data);
+            if (data) {
+                callback(data.entity);
+            }
+        }
+    });
+}
+
+function fetchDeviceHasOrderSelect(id, callback, async = true) {
+    $.ajax({
+        method: 'GET',
+        url: rew + '/controller?command=get_devices_has_orders',
+        data: {
+            id: id,
+            requestType: 'SELECT'
+        },
+        async: async,
+        success: function (response) {
+            let data = JSON.parse(response);
+            console.log(data);
             if (data) {
                 callback(data.entity);
             }

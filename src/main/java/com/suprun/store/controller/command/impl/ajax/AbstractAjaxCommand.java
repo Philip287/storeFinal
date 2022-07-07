@@ -52,7 +52,7 @@ abstract class AbstractAjaxCommand<T extends AbstractEntity> implements Command 
         return CommandResult.createJsonResult(gson.toJson(responseMap));
     }
 
-    private void processSelectRequest(HttpServletRequest request, Map<String, Object> responseMap)
+    protected void processSelectRequest(HttpServletRequest request, Map<String, Object> responseMap)
             throws ServiceException {
         String searchValue = request.getParameter(TERM);
         int page = Integer.parseInt(request.getParameter(PAGE));
@@ -68,14 +68,14 @@ abstract class AbstractAjaxCommand<T extends AbstractEntity> implements Command 
         responseMap.put(PAGINATION_MORE, (long) page * pageSize < recordsFetched);
     }
 
-    private void processFetchRequest(HttpServletRequest request, Map<String, Object> responseMap)
+    protected void processFetchRequest(HttpServletRequest request, Map<String, Object> responseMap)
             throws ServiceException {
         long entityId = Long.parseLong(request.getParameter(ENTITY_ID));
         Optional<T> entity = getFromServiceById(entityId);
         entity.ifPresent(value -> responseMap.put(ENTITY, value));
     }
 
-    private void processDatatablesRequest(HttpServletRequest request, Map<String, Object> responseMap)
+    protected void processDatatablesRequest(HttpServletRequest request, Map<String, Object> responseMap)
             throws ServiceException {
         int start = Integer.parseInt(request.getParameter(PAGINATION_START));
         int length = Integer.parseInt(request.getParameter(PAGINATION_LENGTH));

@@ -82,7 +82,8 @@ public class QueryExecutor {
             }
             return Optional.ofNullable(entity);
         } catch (SQLException e) {
-            throw new DaoException(" ", e);
+            LOGGER.error("Error in QueryExecutor during executeSelect ", e);
+            throw new DaoException("Error in QueryExecutor during executeSelect ", e);
         } finally {
             if (!transaction && !destroyed) {
                 destroyExecutor();
@@ -111,7 +112,7 @@ public class QueryExecutor {
             }
             return entityList;
         } catch (SQLException e) {
-            throw new DaoException(e);
+            throw new DaoException("Error in QueryExecutor during executeSelectMultiple", e);
         } finally {
             if (!transaction && !destroyed) {
                 destroyExecutor();
@@ -137,7 +138,7 @@ public class QueryExecutor {
             }
             return count;
         } catch (SQLException e) {
-            throw new DaoException(e);
+            throw new DaoException("Error in QueryExecutor during executeSelectCount", e);
         } finally {
             if (!transaction && !destroyed) {
                 destroyExecutor();
@@ -168,7 +169,7 @@ public class QueryExecutor {
                     throw new DaoException(ex);
                 }
             }
-            throw new DaoException(e);
+            throw new DaoException("Error in QueryExecutor during executeUpdateOrDelete", e);
         } finally {
             if (!transaction && !destroyed) {
                 destroyExecutor();
@@ -185,7 +186,7 @@ public class QueryExecutor {
      * @throws DaoException if an error occurred while processing the query.
      */
     long executeInsert(String sql, Object... params) throws DaoException {
-        try (PreparedStatement statement = prepareStatement(sql, Statement.NO_GENERATED_KEYS, params)) {
+        try (PreparedStatement statement = prepareStatement(sql, Statement.RETURN_GENERATED_KEYS, params)) {
             statement.execute();
             ResultSet generatedKey = statement.getGeneratedKeys();
             return generatedKey.next() ? generatedKey.getLong(1) : 0;

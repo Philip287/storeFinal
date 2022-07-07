@@ -17,7 +17,7 @@ import org.apache.logging.log4j.Logger;
 @WebListener
 public class ServletContextListenerImpl implements ServletContextListener {
 
-    public static final Logger logger = LogManager.getLogger();
+    public static final Logger LOGGER = LogManager.getLogger();
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
@@ -26,7 +26,7 @@ public class ServletContextListenerImpl implements ServletContextListener {
 
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
-        logger.info("Connection pool destroyed");
+        LOGGER.info("Connection pool destroyed");
         DatabaseConnectionPool.getInstance().destroy();
     }
 }

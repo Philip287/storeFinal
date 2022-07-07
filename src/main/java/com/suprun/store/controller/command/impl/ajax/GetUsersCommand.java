@@ -13,10 +13,9 @@ import org.apache.commons.lang3.tuple.Pair;
 import java.util.List;
 import java.util.Optional;
 
-public class GetUsersCommand extends AbstractAjaxCommand {
+public class GetUsersCommand extends AbstractAjaxCommand<User> {
 
     private final UserService userService = UserServiceImpl.getInstance();
-
 
     @Override
     Pair<Long, List<User>> filterForDatatables(int start, int length, String filterCriteria, String searchValue) throws ServiceException {

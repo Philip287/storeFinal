@@ -7,13 +7,13 @@
     <title><cst:localeTag key="profile.title" /></title>
     <jsp:include page="shared/head.html" />
 
-    <script src="/static/js/common/set_locale.js"></script>
-    <script src="/static/js/common/shared/footer.js"></script>
+    <script src="./static/js/common/set_locale.js"></script>
+    <script src="./static/js/common/shared/footer.js"></script>
 </head>
 
-<jsp:include page="shared/header.jsp" />
-
 <body>
+
+<jsp:include page="shared/header.jsp" />
 
     <main role="main" class="container common-main-form">
         <h3 class="row justify-content-center mb-4">
@@ -30,8 +30,8 @@
             <c:if test="${sessionScope.userRole == 'ADMIN'}">
                 <input id="ri" type="text" readonly value="<cst:localeTag key="admin.users.role.admin" />" class="form-control form-control-sm">
             </c:if>
-            <c:if test="${sessionScope.userRole == 'MAKER'}">
-                <input id="ri" type="text" readonly value="<cst:localeTag key="admin.users.role.maker" />" class="form-control form-control-sm">
+            <c:if test="${sessionScope.userRole == 'MANAGER'}">
+                <input id="ri" type="text" readonly value="<cst:localeTag key="admin.users.role.manager" />" class="form-control form-control-sm">
             </c:if>
         </div>
         <form action="${pageContext.request.contextPath}/controller?command=update_profile" method="post">
@@ -98,9 +98,8 @@
             </script>
         </c:if>
     </main>
+<jsp:include page="shared/footer.jsp" />
 
 </body>
-
-<jsp:include page="shared/footer.jsp" />
 
 </html>

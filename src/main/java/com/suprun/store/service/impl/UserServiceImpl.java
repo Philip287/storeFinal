@@ -5,11 +5,15 @@ import com.suprun.store.dao.impl.UserDaoImpl;
 import com.suprun.store.service.UserService;
 import com.suprun.store.service.criteria.UserFilterCriteria;
 import com.suprun.store.entity.User;
+import com.suprun.store.entity.User.UserStatus;
+import com.suprun.store.entity.User.UserRole;
 import com.suprun.store.exception.DaoException;
 import com.suprun.store.exception.ServiceException;
 import com.suprun.store.util.HashingUtil;
 import com.suprun.store.util.impl.HashingUtilImpl;
 import org.apache.commons.lang3.tuple.Pair;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.Arrays;
 import java.util.List;
@@ -17,6 +21,7 @@ import java.util.Optional;
 
 public class UserServiceImpl implements UserService {
 
+    private static final Logger LOGGER = LogManager.getLogger();
     private final HashingUtil hashingUtil = HashingUtilImpl.getInstance();
     private final UserDao userDao = UserDaoImpl.getInstance();
 
@@ -35,7 +40,8 @@ public class UserServiceImpl implements UserService {
         try {
             user = userDao.selectByEmail(email);
         } catch (DaoException e) {
-            throw new ServiceException(e);
+            LOGGER.error("Error in user service during isEmailUnique ", e);
+            throw new ServiceException("Error in user service during isEmailUnique ", e);
         }
         return user.isEmpty();
     }
@@ -46,19 +52,20 @@ public class UserServiceImpl implements UserService {
         try {
             user = userDao.selectByLogin(login);
         } catch (DaoException e) {
-            throw new ServiceException(e);
+            LOGGER.error("Error in user service during isLoginUnique ", e);
+            throw new ServiceException("Error in user service during isLoginUnique ", e);
         }
         return user.isEmpty();
     }
 
     @Override
-    public long register(String email, String login, String password, User.UserRole role, User.UserStatus status) throws ServiceException {
+    public long register(String email, String login, String password, UserRole role, UserStatus status) throws ServiceException {
         byte[] salt = hashingUtil.generateSalt();
         byte[] passwordHash = hashingUtil.generateHash(password, salt);
 
         User user = (User) User.builder()
                 .setEmail(email)
-                .setEmail(email)
+                .setLogin(login)
                 .setPasswordHash(passwordHash)
                 .setSalt(salt)
                 .setRole(role)
@@ -66,18 +73,20 @@ public class UserServiceImpl implements UserService {
                 .build();
         try {
             return userDao.insert(user);
+
         } catch (DaoException e) {
-            throw new ServiceException(e);
+            LOGGER.error("Error in user service during register ", e);
+            throw new ServiceException("Error in user service during register ", e);
         }
     }
 
     @Override
     public Optional<User> login(String login, String password) throws ServiceException {
-        Optional<User> optional;
+        Optional<User> optionalUser;
         try {
-            optional = userDao.selectByLogin(login);
-            if (optional.isPresent()) {
-                User user = optional.get();
+            optionalUser = userDao.selectByLogin(login);
+            if (optionalUser.isPresent()) {
+                User user = optionalUser.get();
                 byte[] passwordHash = hashingUtil.generateHash(password, user.getSalt());
 
                 if (Arrays.equals(passwordHash, user.getPasswordHash())) {
@@ -85,7 +94,8 @@ public class UserServiceImpl implements UserService {
                 }
             }
         } catch (DaoException e) {
-            throw new ServiceException(e);
+            LOGGER.error("Error in user service during login", e);
+            throw new ServiceException("Error in user service during login", e);
         }
         return Optional.empty();
     }
@@ -95,7 +105,8 @@ public class UserServiceImpl implements UserService {
         try {
             return userDao.selectById(id);
         } catch (DaoException e) {
-            throw new ServiceException(e);
+            LOGGER.error("Error in user service during findById", e);
+            throw new ServiceException("Error in user service during findById", e);
         }
     }
 
@@ -104,7 +115,8 @@ public class UserServiceImpl implements UserService {
         try {
             return userDao.selectByEmail(email);
         } catch (DaoException e) {
-            throw new ServiceException(e);
+            LOGGER.error("Error in user service during findByEmail", e);
+            throw new ServiceException("Error in user service during findByEmail", e);
         }
     }
 
@@ -113,7 +125,8 @@ public class UserServiceImpl implements UserService {
         try {
             userDao.update(user);
         } catch (DaoException e) {
-            throw new ServiceException(e);
+            LOGGER.error("Error in user service during update", e);
+            throw new ServiceException("Error in user service during update", e);
         }
     }
 
@@ -130,7 +143,8 @@ public class UserServiceImpl implements UserService {
         try {
             userDao.update(updateUser);
         } catch (DaoException e) {
-            throw new ServiceException(e);
+            LOGGER.error("Error in user service during updateWithPassword", e);
+            throw new ServiceException("Error in user service during updateWithPassword", e);
         }
     }
 
@@ -139,7 +153,8 @@ public class UserServiceImpl implements UserService {
         try {
             userDao.delete(id);
         } catch (DaoException e) {
-            throw new ServiceException(e);
+            LOGGER.error("Error in user service during delete", e);
+            throw new ServiceException("Error in user service during delete", e);
         }
     }
 
@@ -178,7 +193,8 @@ public class UserServiceImpl implements UserService {
             }
             return Pair.of(count, resultList);
         } catch (DaoException e) {
-            throw new ServiceException(e);
+            LOGGER.error("Error in user service during filter", e);
+            throw new ServiceException("Error in user service during filter", e);
         }
     }
 }

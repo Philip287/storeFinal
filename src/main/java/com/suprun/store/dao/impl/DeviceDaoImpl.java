@@ -81,7 +81,7 @@ public class DeviceDaoImpl implements DeviceDao {
             FROM devices
             WHERE price LIKE CONCAT('%', ?, '%') AND DELETED <> 1
             ORDER BY device_id
-            LIMIT ?, ?:
+            LIMIT ?, ?;
             """;
 
     private static final String SELECT_COUNT_BY_PRICE = """
@@ -132,9 +132,6 @@ public class DeviceDaoImpl implements DeviceDao {
             WHERE type LIKE ? AND deleted <> 1;
             """;
 
-    private DeviceDaoImpl() {
-
-    }
 
     public static DeviceDao getInstance() {
         if (instance == null) {

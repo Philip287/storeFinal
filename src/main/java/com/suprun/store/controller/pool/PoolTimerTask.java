@@ -22,7 +22,7 @@ import java.util.concurrent.locks.Lock;
  * @author Philip Suprun
  */
 public class PoolTimerTask extends TimerTask {
-    public static final Logger logger = LogManager.getLogger();
+    public static final Logger LOGGER = LogManager.getLogger();
 
     @Override
     public void run() {
@@ -61,9 +61,9 @@ public class PoolTimerTask extends TimerTask {
                 }
             }
         } catch (SQLException e) {
-            logger.error("Failed to close connection", e);
+            LOGGER.error("Failed to close connection", e);
         } catch (DatabaseConnectionException e) {
-            logger.error("Failed to establish connection", e);
+            LOGGER.error("Failed to establish connection", e);
         } finally {
             poolLock.unlock();
         }

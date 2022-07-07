@@ -1,6 +1,5 @@
 package com.suprun.store.controller;
 
-import com.suprun.store.util.impl.ImageUploadUtilImpl;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -11,6 +10,8 @@ import java.io.IOException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+
+import static com.suprun.store.util.impl.ImageUploadUtilImpl.uploadDirectory;
 
 /**
  * {@code StaticImageServlet} class is a subclass of {@link HttpServlet} class.
@@ -29,8 +30,9 @@ public class StaticImageServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
         String filename = URLDecoder.decode(request.getPathInfo().substring(PATH_SLASH_INDEX), StandardCharsets.UTF_8);
-        File file = new File(ImageUploadUtilImpl.uploadDirectory, filename);
+        File file = new File(uploadDirectory, filename);
         response.setHeader(CONTENT_TYPE_HEADER_NAME, getServletContext().getMimeType(filename));
         response.setHeader(CONTENT_LENGTH_HEADER_NAME, String.valueOf(file.length()));
         response.setHeader(CONTENT_DISPOSITION_HEADER_NAME, String.format(CONTENT_DISPOSITION_HEADER_VALUE, file.getName()));

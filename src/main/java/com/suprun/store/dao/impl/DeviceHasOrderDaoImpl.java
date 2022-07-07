@@ -90,9 +90,6 @@ public class DeviceHasOrderDaoImpl implements DeviceHasOrderDao {
                     WHERE id_device LIKE CONCAT('%', ?, '%') AND deleted <> 1;
             """;
 
-    private DeviceHasOrderDaoImpl() {
-
-    }
 
     public static DeviceHasOrderDao getInstance() {
         if (instance == null) {

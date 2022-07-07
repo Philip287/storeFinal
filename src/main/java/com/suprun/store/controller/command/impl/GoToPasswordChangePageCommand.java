@@ -28,7 +28,7 @@ public class GoToPasswordChangePageCommand implements Command {
     public CommandResult execute(HttpServletRequest request) {
         try {
             String token = request.getParameter(TOKEN);
-            Map<String, Object> tokenContent = tokenUtil.parseToken(TOKEN);
+            Map<String, Object> tokenContent = tokenUtil.parseToken(token);
             String email = (String) tokenContent.get(EMAIL_CLAIM);
 
             if (!userService.isEmailUnique(email)) {
@@ -38,6 +38,7 @@ public class GoToPasswordChangePageCommand implements Command {
                 LOGGER.error("Got invalid token");
                 return CommandResult.createErrorResult(SC_NOT_FOUND);
             }
+
         } catch (ServiceException e) {
             LOGGER.error("An error occurred during go to password change page command execution", e);
             return CommandResult.createErrorResult(SC_INTERNAL_SERVER_ERROR);

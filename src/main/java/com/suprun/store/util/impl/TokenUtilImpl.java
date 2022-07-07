@@ -48,14 +48,14 @@ public class TokenUtilImpl implements TokenUtil {
             secretKey = Keys.hmacShaKeyFor(key.getBytes(StandardCharsets.UTF_8));
             validityTime = Integer.parseInt(properties.getProperty(VALIDITY_TIME_PROPERTY));
         } catch (IOException e) {
-            LOGGER.fatal("Couldn't read token properties file" + e);
-            throw new RuntimeException("Couldn't read token properties file" + e);
+            LOGGER.fatal("Couldn't read token properties file", e);
+            throw new RuntimeException("Couldn't read token properties file", e);
         }
     }
 
     public static TokenUtil getInstance() {
         if (instance == null) {
-            return new TokenUtilImpl();
+            instance =  new TokenUtilImpl();
         }
         return instance;
     }

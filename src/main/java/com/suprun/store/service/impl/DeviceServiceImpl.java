@@ -40,7 +40,7 @@ public class DeviceServiceImpl implements DeviceService {
         try {
             return deviceDao.selectById(id);
         } catch (DaoException e) {
-            LOGGER.error("Exception in device service method find " + e);
+            LOGGER.error("Exception in device service method find ", e);
             throw new ServiceException(e);
         }
     }
@@ -57,7 +57,7 @@ public class DeviceServiceImpl implements DeviceService {
         try {
             return deviceDao.insert(device);
         } catch (DaoException e) {
-            LOGGER.error("Exception in device service method insert " + e);
+            LOGGER.error("Exception in device service method insert ", e);
             throw new ServiceException(e);
         }
     }
@@ -67,7 +67,7 @@ public class DeviceServiceImpl implements DeviceService {
         try {
             deviceDao.update(device);
         } catch (DaoException e) {
-            LOGGER.error("Exception in device service method update " + e);
+            LOGGER.error("Exception in device service method update ", e);
             throw new ServiceException(e);
         }
     }
@@ -77,7 +77,7 @@ public class DeviceServiceImpl implements DeviceService {
         try {
             deviceDao.delete(id);
         } catch (DaoException e) {
-            LOGGER.error("Exception in device service method delete " + e);
+            LOGGER.error("Exception in device service method delete ", e);
             throw new ServiceException(e);
         }
     }
@@ -116,7 +116,7 @@ public class DeviceServiceImpl implements DeviceService {
                     resultList = deviceDao.selectByType(start, length, keyword);
                     count = deviceDao.selectCountByType(keyword);
                 }
-                default -> throw new RuntimeException("Invalid criteria: " + criteria);
+                default -> throw new ServiceException("Invalid criteria: " + criteria);
             }
             return Pair.of(count, resultList);
         } catch (DaoException e) {

@@ -1,6 +1,7 @@
 package com.suprun.store.controller.listener;
 
 import com.suprun.store.controller.command.SessionAttribute;
+import jakarta.servlet.annotation.WebListener;
 import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.HttpSessionAttributeListener;
 import jakarta.servlet.http.HttpSessionBindingEvent;
@@ -16,6 +17,8 @@ import java.util.concurrent.ConcurrentHashMap;
  *
  * @author Philip Suprun
  */
+
+@WebListener
 public class HttpSessionAttributeListenerImpl implements HttpSessionAttributeListener {
     private static final Map<Long, HttpSession> userSession = new ConcurrentHashMap<>();
 

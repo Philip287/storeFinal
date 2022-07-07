@@ -2,8 +2,6 @@ package com.suprun.store.util;
 
 import com.suprun.store.exception.ServiceException;
 
-import javax.sql.rowset.serial.SerialException;
-
 /**
  * {@code MailUtil} interface provides functionality for sending emails.
  *

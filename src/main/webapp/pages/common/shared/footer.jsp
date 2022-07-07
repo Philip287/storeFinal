@@ -8,7 +8,8 @@
         <div class="container-fluid">
             <ul class="nav navbar-nav">
                 <li class="nav-item">
-                    <p class="navbar-text mb-auto mt-auto"><cst:localeTag key="footer.site_by" /> Suprun</p>
+                    <p class="nvbar-navbar-text mb-auto mt-auto"><cst:localeTag key="footer.site_by" /> Suprun</p>
+                    <p class="nvbar-navbar-text mb-auto mt-auto"><cst:localeTag key="footer.back_connection" /> Viktor</p>
                 </li>
             </ul>
             <ul class="navbar-nav navbar-right">
@@ -22,3 +23,5 @@
         </div>
     </nav>
 </footer>
+
+<script src="./static/js/common/shared/count.js"></script>

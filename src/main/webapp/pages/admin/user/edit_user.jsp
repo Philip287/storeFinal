@@ -7,8 +7,8 @@
     <title><cst:localeTag key="admin.edit_user.title" /></title>
     <jsp:include page="../shared/head.html" />
 
-    <script src="/static/js/common/shared/footer.js"></script>
-    <script src="/static/js/admin/user/edit_user.js"></script>
+    <script src="./static/js/common/shared/footer.js"></script>
+    <script src="./static/js/admin/user/edit_user.js"></script>
 </head>
 
 <jsp:include page="../../common/shared/header.jsp" />
@@ -43,7 +43,7 @@
                 <label class="form-group" for="role_select"><cst:localeTag key="admin.users.role" /></label>
                 <select name="role" id="role_select" class="form-select form-select-sm">
                     <option value="ADMIN"><cst:localeTag key="admin.users.role.admin" /></option>
-                    <option value="MAKER"><cst:localeTag key="admin.users.role.maker" /></option>
+                    <option value="MAKER"><cst:localeTag key="admin.users.role.manager" /></option>
                     <option value="CLIENT"><cst:localeTag key="admin.users.role.client" /></option>
                 </select>
             </div>
@@ -87,8 +87,8 @@
         </c:if>
     </main>
 
-</body>
+    <jsp:include page="../../common/shared/footer.jsp" />
 
-<jsp:include page="../../common/shared/footer.jsp" />
+</body>
 
 </html>

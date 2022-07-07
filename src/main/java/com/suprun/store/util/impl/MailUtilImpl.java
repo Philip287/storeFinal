@@ -25,7 +25,7 @@ import static com.suprun.store.util.impl.TokenUtilImpl.ID_CLAIM;
 public class MailUtilImpl implements MailUtil {
     private static final Logger LOGGER = LogManager.getLogger();
 
-    public static final String PROTOCOL_DELIMITER = ";//";
+    public static final String PROTOCOL_DELIMITER = "://";
 
     private static final String MAIL_PROPERTIES_NAME = "properties/mail.properties";
     private static final String USERNAME_PROPERTY = "username";
@@ -35,7 +35,7 @@ public class MailUtilImpl implements MailUtil {
 
     private static final String CONFIRMATION_MAIL_SUBJECT_PROPERTY = "confirmationMail.subject";
     private static final String CONFIRMATION_MAIL_BODY_PROPERTY = "confirmationMail.body";
-    private static final String CONFIRMATION_MAIL_URL_BLANK = "controller?command=confirm_email&token=";
+    private static final String CONFIRMATION_MAIL_URL_BLANK = ":8080/Gradle___com_suprun___store_1_0_SNAPSHOT_war/controller?command=confirm_email&token=";
 
     private static final String PASSWORD_CHANGE_MAIL_SUBJECT_PROPERTY = "passwordChangeMail.subject";
     private static final String PASSWORD_CHANGE_MAIL_BODY_PROPERTY = "passwordChangeMail.body";
@@ -80,6 +80,7 @@ public class MailUtilImpl implements MailUtil {
             LOGGER.fatal("Couldn't read mail properties file", e);
             throw new RuntimeException("Couldn't read mail properties file", e);
         }
+
     }
 
     public static MailUtil getInstance() {
@@ -114,7 +115,6 @@ public class MailUtilImpl implements MailUtil {
 
         String mailBody = String.format(bodyTemplate, confirmationLink);
         sendMail(email, mailSubject, mailBody);
-
     }
 
     @Override
@@ -152,11 +152,11 @@ public class MailUtilImpl implements MailUtil {
                 try {
                     Transport.send(message);
                 } catch (MessagingException e) {
-                    LOGGER.error("Error sending an email", e);
+                    LOGGER.error("Error sending (Transport.send) an email", e);
                 }
             });
         } catch (MessagingException e) {
-            throw new ServiceException("Error sending an email", e);
+            throw new ServiceException("Error sending (MessagingException) an email", e);
         }
     }
 }

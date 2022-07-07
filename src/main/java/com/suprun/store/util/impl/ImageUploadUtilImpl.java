@@ -8,6 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -20,7 +21,7 @@ public class ImageUploadUtilImpl implements ImageUploadUtil {
     public static final String DEFAULT_IMAGE_NAME = "default.png";
     public static final String IMAGES_URL = "images/";
     private static final String UPLOAD_PROPERTIES_NAME = "properties/upload.properties";
-    private static final String DIRECTORY_PROPERTY = "properties/images";
+    private static final String DIRECTORY_PROPERTY = "directory";
     private static final String RANDOM_STRING_LENGTH_PROPERTY = "randomStringLength";
 
     private static final Properties uploadProperties;
@@ -34,9 +35,13 @@ public class ImageUploadUtilImpl implements ImageUploadUtil {
             uploadProperties.load(inputStream);
             uploadDirectory = uploadProperties.getProperty(DIRECTORY_PROPERTY);
             randomStringLength = Integer.parseInt(uploadProperties.getProperty(RANDOM_STRING_LENGTH_PROPERTY));
+            File fileSaveDir = new File(uploadDirectory);
+            if (!fileSaveDir.exists()) {
+                fileSaveDir.mkdir();
+            }
         } catch (IOException e) {
             LOGGER.fatal("Couldn't read upload properties file", e);
-            throw new RuntimeException(e);
+            throw new RuntimeException("Couldn't read upload properties file", e);
         }
     }
 
@@ -49,16 +54,17 @@ public class ImageUploadUtilImpl implements ImageUploadUtil {
 
     @Override
     public String uploadImage(Part part) throws ServiceException {
+
         String picturePath;
         String fileName = part.getSubmittedFileName();
         if (!fileName.isEmpty()) {
             try {
                 String randomName = RandomStringUtils.randomAlphanumeric(randomStringLength) + fileName;
-                part.write(uploadDirectory + randomName);
+                part.write(uploadDirectory + File.separator + randomName);
                 picturePath = IMAGES_URL + randomName;
             } catch (IOException e) {
                 LOGGER.error("An error occurred during uploading file", e);
-                throw new ServiceException(e);
+                throw new ServiceException("An error occurred during uploading file", e);
             }
         } else {
             picturePath = IMAGES_URL + DEFAULT_IMAGE_NAME;
@@ -71,4 +77,5 @@ public class ImageUploadUtilImpl implements ImageUploadUtil {
     public boolean isDefaultPicturePath(String picturePath) {
         return StringUtils.equals(picturePath, IMAGES_URL + DEFAULT_IMAGE_NAME);
     }
+
 }

@@ -1,6 +1,8 @@
 package com.suprun.store.entity;
 
+
 public abstract class AbstractEntity {
+
     private long entityId;
 
     public long getEntityId() {
