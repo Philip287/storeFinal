@@ -22,12 +22,12 @@ $(document).ready(function () {
     let devicePageData = bodyTag.data('device-page');
     let addToOrderData = bodyTag.data('add-to-order');
     let anyData = bodyTag.data('any');
+    let path = bodyTag.data('path');
 
     let footer = $('footer');
     let locale = footer.data('locale');
     localeChange($('#localeSelect'), locale);
 
-    let rew = "/Gradle___com_suprun___store_1_0_SNAPSHOT_war";
     let jsonUrl;
     if (locale === 'en_US') {
         jsonUrl = 'https://cdn.datatables.net/plug-ins/1.11.1/i18n/en-gb.json'
@@ -44,7 +44,7 @@ $(document).ready(function () {
         serverSide: true,
         ordering: false,
         ajax: {
-            url: rew + '/controller?command=get_devices',
+            url: path + '/controller?command=get_devices',
             data: function (data) {
                 data.filterCriteria = $('#searchCriteria').val();
                 data.requestType = 'DATATABLE';
@@ -76,7 +76,7 @@ $(document).ready(function () {
                         return "<p>" + ramData + "</p>";
                     } else if (data === "SPEAKER") {
                         return "<p>" + speakerData + "</p>";
-                    } else if (data === "VIDEO_CARD") {
+                    } else if (data === "VIDEOCARD") {
                         return "<p>" + videoCardData + "</p>";
                     } else if (data === "COOLER") {
                         return "<p>" + coolerData + "</p>";
@@ -98,7 +98,7 @@ $(document).ready(function () {
             {
                 data: null,
                 render: function (row) {
-                    return '<a href= "/Gradle___com_suprun___store_1_0_SNAPSHOT_war/controller?command=go_to_device_page&id=' + row.entityId + '" type="button" class="btn btn-outline-primary me-1">'
+                    return '<a href= "' + path + '/controller?command=go_to_device_page&id=' + row.entityId + '" type="button" class="btn btn-outline-primary me-1">'
                         + devicePageData + '</a>'
                         + '<button class="btn btn-outline-primary me-1 add-to-card">'
                         + addToOrderData + '</button>'
@@ -154,7 +154,7 @@ $(document).ready(function () {
                     .append($("<option></option>").attr("value", "PROCESSOR").text(processorData))
                     .append($("<option></option>").attr("value", "RAM").text(ramData))
                     .append($("<option></option>").attr("value", "SPEAKER").text(speakerData))
-                    .append($("<option></option>").attr("value", "VIDEO_CARD").text(videoCardData))
+                    .append($("<option></option>").attr("value", "VIDEOCARD").text(videoCardData))
                     .append($("<option></option>").attr("value", "COOLER").text(coolerData))
                     .append($("<option></option>").attr("value", "VENTILATOR").text(ventilatorData))
                 searchSelect.select('destroy');
@@ -177,7 +177,7 @@ $(document).ready(function () {
     // ADD TO CARD START
     const count = $('.count')
     let countQty = count.text()
-    let newrew = null
+    let newrew = ''
     let getStorage = []
     let ItemStorage = []
 
@@ -187,12 +187,13 @@ $(document).ready(function () {
         const id = _this.parents('tr').find('td:first-child').text()
         const title = _this.parents('tr').find('td:nth-child(3)').text()
         const price = _this.parents('tr').find('td:nth-child(6)').text()
+        const picturePath = _this.parents('tr').find('td:nth-child(4) > img').attr('src')
         const userId = userID
         const qty = 1
 
-        const item = {id, userId, title, price, qty}
+        const item = {deviceId: id, userId, title, price, number: qty, picturePath}
 
-        getStorage = JSON.parse(localStorage.getItem("card"))
+        getStorage = localStorage.getItem("card")
             ? JSON.parse(localStorage.getItem("card"))
             : getStorage
 
@@ -202,18 +203,14 @@ $(document).ready(function () {
         _this.attr('disabled', true)
     }
 
-    getStorage = JSON.parse(localStorage.getItem("card"))
+    getStorage = localStorage.getItem("card")
         ? JSON.parse(localStorage.getItem("card"))
         : getStorage
 
-    newrew = JSON.parse(localStorage.getItem("card"))
-    countQty = newrew ? newrew.length : 0
+    newrew = localStorage.getItem("card") ? JSON.parse(localStorage.getItem("card")) : ''
+    countQty = newrew !== '' ? newrew.length : 0
     count.text(countQty)
 
     $('.container-fluid').on('click', '.add-to-card', addToCard)
     // ADD TO CARD END
-
-
-
-
 });

@@ -6,12 +6,14 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
         <ul class="nav navbar-nav me-auto ms-auto">
-            <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/controller?command=go_to_users_page" role="button"
-                   class="btn btn-primary me-5">
-                    <cst:localeTag key="admin.users"/>
-                </a>
-            </li>
+            <c:if test="${sessionScope.userRole.ordinal() == 0}">
+                <li class="nav-item">
+                    <a href="${pageContext.request.contextPath}/controller?command=go_to_users_page" role="button"
+                       class="btn btn-primary me-5">
+                        <cst:localeTag key="admin.users"/>
+                    </a>
+                </li>
+            </c:if>
             <li class="nav-item">
                 <a href="${pageContext.request.contextPath}/controller?command=go_to_orders_page" role="button"
                    class="btn btn-primary me-5">

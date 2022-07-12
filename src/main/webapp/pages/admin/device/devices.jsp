@@ -20,13 +20,13 @@
     </c:if>
 
     <script src="./static/js/util/fetch.js"></script>
-    <script src="./static/js/admin/device/devices.js"></script>
+    <script src="./static/js/admin/device/devices_admin.js"></script>
     <script src="./static/js/common/shared/footer.js"></script>
 </head>
 
 
-
-<body data-search="<cst:localeTag key="admin.search"/>"
+<body data-path="${pageContext.request.contextPath}"
+      data-search="<cst:localeTag key="admin.search"/>"
       data-edit="<cst:localeTag key="admin.edit"/>"
       data-delete="<cst:localeTag key="admin.delete"/>"
       data-id="<cst:localeTag key="admin.device.id"/>"

@@ -62,7 +62,7 @@ public interface DeviceHasOrderDao extends BaseDao<DeviceHasOrder> {
 
     @Override
     default DeviceHasOrder buildEntityFromResultSet(ResultSet resultSet) throws SQLException {
-        return (DeviceHasOrder) builder()
+        return builder()
                 .setOrderId(resultSet.getLong(ID_ORDER))
                 .setDeviceId(resultSet.getLong(ID_DEVICE))
                 .setNumber(resultSet.getLong(NUMBER))

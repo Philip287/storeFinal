@@ -10,6 +10,10 @@ public class EmailValidator implements Validator<String> {
 
     private static Validator<String> instance;
 
+    private EmailValidator(){
+
+    }
+
     public static Validator<String> getInstance() {
         if (instance == null) {
             instance = new EmailValidator();

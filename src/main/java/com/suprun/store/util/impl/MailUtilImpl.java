@@ -39,7 +39,7 @@ public class MailUtilImpl implements MailUtil {
 
     private static final String PASSWORD_CHANGE_MAIL_SUBJECT_PROPERTY = "passwordChangeMail.subject";
     private static final String PASSWORD_CHANGE_MAIL_BODY_PROPERTY = "passwordChangeMail.body";
-    private static final String PASSWORD_CHANGE_MAIL_URL_BLANK = "/controller?command=go_to_password_change_page&token=";
+    private static final String PASSWORD_CHANGE_MAIL_URL_BLANK = ":8080/Gradle___com_suprun___store_1_0_SNAPSHOT_war/controller?command=go_to_password_change_page&token=";
 
     private static final String ORDER_IN_PROGRESS_MAIL_SUBJECT_PROPERTY = "orderInProgressMail.subject";
     private static final String ORDER_IN_PROGRESS_MAIL_BODY_PROPERTY = "orderInProgressMail.body";
@@ -126,7 +126,7 @@ public class MailUtilImpl implements MailUtil {
     }
 
     @Override
-    public void sendOrderCompleteMail(String email, long orderId, String scheme, String serverName) throws ServiceException {
+    public void sendOrderCompletedMail(String email, long orderId, String scheme, String serverName) throws ServiceException {
         String mailSubject = mailProperties.getProperty(ORDER_COMPLETED_MAIL_SUBJECT_PROPERTY);
         String bodyTemplate = mailProperties.getProperty(ORDER_COMPLETED_MAIL_BODY_PROPERTY);
         String mailBody = String.format(bodyTemplate, orderId);

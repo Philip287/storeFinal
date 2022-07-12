@@ -50,5 +50,5 @@ public interface MailUtil {
      * @param serverName from request
      * @throws ServiceException if application is unable to send mail
      */
-    void sendOrderCompleteMail(String email, long orderId, String scheme, String serverName) throws ServiceException;
+    void sendOrderCompletedMail(String email, long orderId, String scheme, String serverName) throws ServiceException;
 }

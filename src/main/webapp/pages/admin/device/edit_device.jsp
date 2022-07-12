@@ -39,14 +39,14 @@
             <label class="form-group" for="ni"><cst:localeTag key="admin.device.name"/></label>
             <input id="ni" type="text" name="name" value="${requestScope.device.name}"
                    placeholder=
-                   <cst:localeTag key="placeholder.name"/> required pattern="[a-zA-Z0-9\s\-]{1,30}"
+                   <cst:localeTag key="placeholder.name"/> required pattern="[a-zA-Z0-9s\-]{1,30}"
                    class="form-control form-control-sm">
         </div>
         <div class="form-outline mb-2">
             <label class="form-group" for="ci"><cst:localeTag key="admin.device.description"/></label>
             <input id="ci" type="text" name="description" value="${requestScope.device.description}"
                    placeholder=
-                   <cst:localeTag key="placeholder.description"/> required pattern="[a-zA-Z0-9\s\-]{1,200}"
+                   <cst:localeTag key="placeholder.description"/> required pattern="[a-zA-Z0-9\s\-]{1,2000}"
                    class="form-control form-control-sm">
         </div>
         <div class="form-outline mb-2">
@@ -56,9 +56,10 @@
                    <cst:localeTag key="placeholder.price"/> required pattern="[0-9\s\-]{1,15}"
                    class="form-control form-control-sm">
         </div>
-        <label class="form-group" for="file_input"><cst:localeTag key="admin.device.picture_path" /></label>
+        <label class="form-group" for="file_input"><cst:localeTag key="admin.device.picture_path"/></label>
         <div class="form-outline mb-2">
-            <input type="file" name="picturePath" id="file_input" accept="image/png, image/jpeg" class="form-control-file form-control-sm">
+            <input type="file" name="picturePath" id="file_input" accept="image/png, image/jpeg"
+                   class="form-control-file form-control-sm">
         </div>
         <div class="form-outline mb-2">
             <label class="form-group" for="dt"><cst:localeTag key="admin.device.type"/></label>
@@ -73,7 +74,7 @@
                 <option value="PROCESSOR"><cst:localeTag key="admin.device.type.processor"/></option>
                 <option value="RAM"><cst:localeTag key="admin.device.type.ram"/></option>
                 <option value="SPEAKER"><cst:localeTag key="admin.device.type.speaker"/></option>
-                <option value="VIDEO_CARD"><cst:localeTag key="admin.device.type.video_card"/></option>
+                <option value="VIDEOCARD"><cst:localeTag key="admin.device.type.video_card"/></option>
                 <option value="VENTILATOR"><cst:localeTag key="admin.device.type.ventilator"/></option>
             </select>
         </div>

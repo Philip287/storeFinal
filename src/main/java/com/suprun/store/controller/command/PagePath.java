@@ -20,8 +20,6 @@ public class PagePath {
     public static final String ADMIN_EDIT_DEVICE_JSP = "/pages/admin/device/edit_device.jsp";
     public static final String ADMIN_DEVICES_JSP = "/pages/admin/device/devices.jsp";
     public static final String ADMIN_ORDERS_JSP = "/pages/admin/order/orders.jsp";
-    public static final String ADMIN_CREATE_ORDER_JSP = "/pages/common/create_order.jsp";
-    public static final String ADMIN_EDIT_ORDER_JSP = "/pages/admin/order/edit_order.jsp";
     public static final String FINISH_ORDER_JSP = "/pages/common/finish_order.jsp";
     public static final String CARD_JSP = "/pages/common/card.jsp";
     public static final String USER_PRODUCTS_CATALOG_JSP = "/pages/common/products_catalog.jsp";

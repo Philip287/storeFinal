@@ -20,11 +20,12 @@
     </c:if>
 
     <script src="./static/js/util/fetch.js"></script>
-    <script src="./static/js/admin/order/orders_a.js"></script>
+    <script src="./static/js/admin/order/orders_admin.js"></script>
     <script src="./static/js/common/shared/footer.js"></script>
 </head>
 
-<body data-search="<cst:localeTag key="admin.search"/>"
+<body data-path="${pageContext.request.contextPath}"
+      data-search="<cst:localeTag key="admin.search"/>"
       data-more-detailed="<cst:localeTag key="admin.more.detailed"/>"
       data-delete="<cst:localeTag key="admin.delete"/>"
       data-id="<cst:localeTag key="admin.order.id"/>"
@@ -35,6 +36,7 @@
       data-in-progress="<cst:localeTag key="admin.order_status.in_progress"/>"
       data-completed="<cst:localeTag key="admin.order_status.completed"/>"
       data-create="<cst:localeTag key="admin.create"/>"
+      data-user-role="${sessionScope.userRole}"
       data-any="<cst:localeTag key="admin.any"/>">
 
 <jsp:include page="../../common/shared/header.jsp"/>

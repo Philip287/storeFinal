@@ -98,30 +98,4 @@ public class OrderServiceImpl implements OrderService {
             throw new ServiceException(e);
         }
     }
-
-    @Override
-    public Pair<Long, List<Order>> filterForActiveOrder(int start, int length, OrderFilterCriteria criteria, String keyword) throws ServiceException {
-        try {
-            long count;
-            List<Order> resultList;
-            switch (criteria) {
-                case NONE -> {
-                    resultList = orderDao.selectAllForActiveOrder(start, length);
-                    count = orderDao.selectCountAllForActiveOrder();
-                }
-                case ORDER_STATUS -> {
-                    resultList = orderDao.selectByOrderStatus(start, length, keyword);
-                    count = orderDao.selectCountByOrderStatus(keyword);
-                }
-                case ID_USER -> {
-                    resultList = orderDao.selectByUserIdForActiveOrder(start, length, keyword);
-                    count = orderDao.selectCountByUserIdForActiveOrder(keyword);
-                }
-                default -> throw new ServiceException("Invalid criteria: " + criteria);
-            }
-            return Pair.of(count, resultList);
-        } catch (DaoException e) {
-            throw new ServiceException(e);
-        }
-    }
 }

@@ -61,8 +61,8 @@ CREATE TABLE IF NOT EXISTS `Store`.`orders` (
   `id_user` INT NOT NULL,
   PRIMARY KEY (`order_id`),
   UNIQUE INDEX `order_id_UNIQUE` (`order_id` ASC) VISIBLE,
-  INDEX `fk_orders_users1_idx` (`id_user` ASC) VISIBLE,
-  CONSTRAINT `fk_orders_users1`
+  INDEX `fk_orders_users_idx` (`id_user` ASC) VISIBLE,
+  CONSTRAINT `fk_orders_users`
     FOREIGN KEY (`id_user`)
     REFERENCES `Store`.`users` (`user_id`)
     ON DELETE NO ACTION
@@ -79,17 +79,17 @@ CREATE TABLE IF NOT EXISTS `Store`.`devices_has_orders` (
   `number` INT NOT NULL DEFAULT 1,
   `deleted` TINYINT NOT NULL DEFAULT 0,
   PRIMARY KEY (`id_device`, `id_order`),
-  INDEX `fk_devices_has_orders_orders1_idx` (`id_order` ASC) VISIBLE,
+  INDEX `fk_devices_has_orders_orders_idx` (`id_order` ASC) VISIBLE,
   INDEX `fk_devices_has_orders_devices_idx` (`id_device` ASC) VISIBLE,
   CONSTRAINT `fk_devices_has_orders_devices`
     FOREIGN KEY (`id_device`)
     REFERENCES `Store`.`devices` (`device_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_devices_has_orders_orders1`
+  CONSTRAINT `fk_devices_has_orders_orders`
     FOREIGN KEY (`id_order`)
     REFERENCES `Store`.`orders` (`order_id`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 

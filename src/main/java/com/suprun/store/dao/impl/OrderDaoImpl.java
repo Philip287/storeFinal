@@ -88,33 +88,10 @@ public class OrderDaoImpl implements OrderDao {
             FROM orders
             WHERE id_user LIKE CONCAT ('%', ?, '%') AND deleted <> 1;
             """;
-
-    private static final String SELECT_MULTIPLE_BY_USER_ID_FOR_ACTIVE_ORDER = """
-            SELECT order_id, order_status, id_user
-            FROM orders
-            WHERE id_user LIKE CONCAT ('%', ?, '%') AND order_status = <> 'COMPLETED' AND deleted <> 1
-            ORDER BY order_id
-            LIMIT ?, ?;
-            """;
-
-    private static final String SELECT_COUNT_BY_USER_ID_FOR_ACTIVE_ORDER = """
-            SELECT COUNT(order_id)
-            FROM orders
-            WHERE id_user LIKE CONCAT ('%', ?, '%') AND order_status = <> 'COMPLETED' AND deleted <> 1;
-            """;
-
-    private static final String SELECT_ALL_FOR_ACTIVE_ORDER = """
-            SELECT order_id, order_status, id_user
-            FROM orders
-            WHERE deleted <> 1 AND order_status <> 'COMPLETED'
-            ORDER BY order_id
-            LIMIT ?, ?;
-            """;
-
-    private static final String SELECT_COUNT_ALL_FOR_ACTIVE_ORDER = """
-            SELECT COUNT (order_id)
-            FROM orders
-            WHERE deleted <> 1 AND order_status <> 'COMPLETED';
+    private static final String DELETE_DEVICE_HAS_ORDER_BY_ORDER = """
+            UPDATE devices_has_orders
+            SET deleted = 1
+            WHERE id_order = ?;
             """;
 
     public static OrderDao getInstance() {
@@ -145,7 +122,10 @@ public class OrderDaoImpl implements OrderDao {
 
     @Override
     public void delete(long id) throws DaoException {
-        QueryExecutor.createExecutor().executeUpdateOrDelete(DELETE, id);
+        QueryExecutor executor = QueryExecutor.createTransactionExecutor();
+        executor.executeUpdateOrDelete(DELETE, id);
+        executor.executeUpdateOrDelete(DELETE_DEVICE_HAS_ORDER_BY_ORDER, id);
+        executor.commit();
     }
 
     @Override
@@ -197,25 +177,4 @@ public class OrderDaoImpl implements OrderDao {
         return QueryExecutor.createExecutor().executeSelectCount(SELECT_COUNT_BY_ORDER_STATUS, keyword);
     }
 
-    @Override
-    public List<Order> selectByUserIdForActiveOrder(int offset, int length, String keyword) throws DaoException {
-        return QueryExecutor.createExecutor()
-                .executeSelectMultiple(SELECT_MULTIPLE_BY_USER_ID_FOR_ACTIVE_ORDER, this, keyword, offset, length);
-    }
-
-    @Override
-    public long selectCountByUserIdForActiveOrder(String keyword) throws DaoException {
-        return QueryExecutor.createExecutor().executeSelectCount(SELECT_COUNT_BY_USER_ID_FOR_ACTIVE_ORDER, keyword);
-    }
-
-    @Override
-    public List<Order> selectAllForActiveOrder(int offset, int length) throws DaoException {
-        return QueryExecutor.createExecutor()
-                .executeSelectMultiple(SELECT_ALL_FOR_ACTIVE_ORDER, this, offset, length);
-    }
-
-    @Override
-    public long selectCountAllForActiveOrder() throws DaoException {
-        return QueryExecutor.createTransactionExecutor().executeSelectCount(SELECT_COUNT_ALL_FOR_ACTIVE_ORDER);
-    }
 }

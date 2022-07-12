@@ -25,7 +25,7 @@ public class DeviceHasOrderDaoImpl implements DeviceHasOrderDao {
     private static final String DELETE = """
             UPDATE devices_has_orders
             SET deleted = 1
-            WHERE AND id_order = ?;
+            WHERE id_order = ?;
             """;
 
     private static final String SELECT_BY_ORDER_ID = """

@@ -51,7 +51,7 @@ public class CommandProvider {
         commandMap.put(CommandType.GO_TO_FORGOT_PASSWORD_PAGE, Pair.of(new GoToForgotPasswordPageCommand(),
                 new HashSet<>(Collections.singletonList(GUEST))));
         commandMap.put(CommandType.GO_TO_PASSWORD_CHANGE_PAGE, Pair.of(new GoToPasswordChangePageCommand(),
-                new HashSet<>(Arrays.asList(CLIENT, MANAGER, ADMIN))));
+                new HashSet<>(Arrays.asList(GUEST, CLIENT, MANAGER, ADMIN))));
         commandMap.put(CommandType.GO_TO_DEVICES_PAGE, Pair.of(new GoToDevicesPageCommand(),
                 new HashSet<>(Arrays.asList(CLIENT, MANAGER, ADMIN))));
         commandMap.put(CommandType.GO_TO_PRODUCTS_CATALOG_PAGE, Pair.of(new GoToProductsCatalogPage(),
@@ -66,10 +66,6 @@ public class CommandProvider {
                 new HashSet<>(Arrays.asList(MANAGER, ADMIN))));
         commandMap.put(CommandType.GO_TO_ORDER_PAGE, Pair.of(new GoToOrderPageCommand(),
                 new HashSet<>(Arrays.asList(CLIENT, MANAGER, ADMIN))));
-        commandMap.put(CommandType.GO_TO_CREATE_ORDER_PAGE, Pair.of(new GoToCreateOrderPageCommand(),
-                new HashSet<>(Arrays.asList(MANAGER, ADMIN))));
-        commandMap.put(CommandType.GO_TO_EDIT_ORDER_PAGE, Pair.of(new GoToEditOrderPageCommand(),
-                new HashSet<>(Arrays.asList(MANAGER, ADMIN))));
         commandMap.put(CommandType.GO_TO_MY_ORDERS_PAGE, Pair.of(new GoToMyOrdersPageCommand(),
                 new HashSet<>(Arrays.asList(CLIENT, MANAGER, ADMIN))));
         commandMap.put(CommandType.GO_TO_CARD_PAGE, Pair.of(new GoToCardPageCommand(),
@@ -118,6 +114,9 @@ public class CommandProvider {
                 new HashSet<>(Arrays.asList(MANAGER, ADMIN))));
         commandMap.put(CommandType.GET_DEVICES_HAS_ORDERS, Pair.of(new GetDevicesHasOrdersCommand(),
                 new HashSet<>(Arrays.asList(CLIENT, MANAGER, ADMIN))));
+        commandMap.put(CommandType.FINISH_ORDER, Pair.of(new FinishOrderCommand(),
+                new HashSet<>(Arrays.asList(MANAGER, ADMIN))));
+
     }
 
     /**

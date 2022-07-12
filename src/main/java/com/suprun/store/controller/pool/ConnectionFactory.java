@@ -26,6 +26,10 @@ public class ConnectionFactory {
     private static final String dbUrl;
     private static final Properties dbProperties = new Properties();
 
+    private ConnectionFactory(){
+
+    }
+
     static {
         ClassLoader classLoader = ConnectionFactory.class.getClassLoader();
         try (InputStream inputStream = classLoader.getResourceAsStream(DB_PROPERTIES_NAME)) {

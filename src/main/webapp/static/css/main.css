@@ -87,3 +87,6 @@ footer {
     position: relative;
     top: 65px;
 }
+.send-submit-card:disabled {
+    cursor: no-drop;
+}

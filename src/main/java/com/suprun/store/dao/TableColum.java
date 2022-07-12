@@ -6,7 +6,7 @@ package com.suprun.store.dao;
  * @author Philip Suprun
  */
 public final class TableColum {
-    private void TableColumn() {
+    private TableColum() {
 
     }
 

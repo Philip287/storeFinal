@@ -66,19 +66,4 @@ public interface OrderService {
     Pair<Long, List<Order>> filter(int start, int length, OrderFilterCriteria criteria, String keyword)
             throws ServiceException;
 
-    /**
-     * Find {@link Order} entities that satisfy certain criteria with active {@link OrderStatus}.
-     *
-     * @param start    lower bound index from which the result collection will start.
-     * @param length   of the result collection.
-     * @param criteria instance of {@link OrderFilterCriteria} that specifies a criteria for filtering.
-     * @param keyword  stored entities will be filtered by.
-     * @return {@link Pair} of {@code long} value and {@link List} of {@code Body} entities
-     * that represent count and collection of all found entities satisfied filter criteria and filter value
-     * @throws ServiceException if an error occurred executing the method.
-     */
-    Pair<Long, List<Order>> filterForActiveOrder(int start, int length, OrderFilterCriteria criteria, String keyword)
-            throws ServiceException;
-
-
 }

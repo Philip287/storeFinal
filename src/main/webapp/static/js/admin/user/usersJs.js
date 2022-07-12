@@ -15,12 +15,13 @@ $(document).ready(function () {
     let deleteData = bodyTag.data('delete');
     let createData = bodyTag.data('create');
     let anyData = bodyTag.data('any');
+    let path = bodyTag.data('path');
+
 
 
     let footer = $('footer');
     let locale = footer.data('locale');
     localeChange($('#localeSelect'), locale);
-    let rew = "/Gradle___com_suprun___store_1_0_SNAPSHOT_war";
     let jsonUrl;
     if (locale === 'en_US') {
         jsonUrl = 'https://cdn.datatables.net/plug-ins/1.11.1/i18n/en-gb.json'
@@ -37,7 +38,7 @@ $(document).ready(function () {
         serverSide: true,
         ordering: false,
         ajax: {
-            url: rew + '/controller?command=get_users',
+            url: path + '/controller?command=get_users',
             data: function (data) {
                 data.filterCriteria = $('#searchCriteria').val();
                 data.requestType = 'DATATABLE';
@@ -72,10 +73,10 @@ $(document).ready(function () {
             {
                 data: null,
                 render: function (row) {
-                    return '<a href= "/Gradle___com_suprun___store_1_0_SNAPSHOT_war/controller?command=go_to_edit_user_page&id='
+                    return '<a href= "'+ path + '/controller?command=go_to_edit_user_page&id='
                         + row.entityId + '" type="button" class="btn btn-outline-primary me-1">'
                         + editData + '</a>'
-                        + '<a href="/Gradle___com_suprun___store_1_0_SNAPSHOT_war/controller?command=delete_user&id='
+                        + '<a href="'+ path + '/controller?command=delete_user&id='
                         + row.entityId + '" type="button" class="btn btn-outline-primary me-1">' + deleteData + '</a>'
                 }
             },
@@ -111,7 +112,7 @@ $(document).ready(function () {
         searchSelect.hide();
 
         $('#createButton').click(function () {
-            window.location.href = rew + "/controller?command=go_to_create_user_page";
+            window.location.href = path + "/controller?command=go_to_create_user_page";
         });
 
         searchInput.keyup(function () {

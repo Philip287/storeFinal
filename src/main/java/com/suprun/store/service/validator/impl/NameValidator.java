@@ -10,6 +10,9 @@ public class NameValidator implements Validator<String> {
 
     private static Validator<String> instance;
 
+    private NameValidator(){
+
+    }
     public static Validator<String> getInstance() {
         if (instance == null) {
             instance = new NameValidator();

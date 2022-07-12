@@ -20,7 +20,7 @@
     </c:if>
 
     <script src="./static/js/util/fetch.js"></script>
-    <script src="./static/js/common/order_admin.js"></script>
+    <script src="./static/js/common/order.js"></script>
     <script src="./static/js/common/shared/footer.js"></script>
 
 </head>
@@ -28,6 +28,7 @@
 <body data-userid="${requestScope.order.userId}"
       data-orderstatus="${requestScope.order.orderStatus}"
       data-orderid="${requestScope.order.entityId}"
+      data-path="${pageContext.request.contextPath}"
       data-id="<cst:localeTag key="admin.order.id"/>"
       data-user="<cst:localeTag key="admin.user"/>"
       data-user-email="<cst:localeTag key="admin.user.email"/>"
@@ -51,15 +52,12 @@
     <table id="orders_table" class="table table-striped table-bordered">
         <thead>
         <th><cst:localeTag key="admin.order.id"/></th>
-        <th><cst:localeTag key="admin.user.name"/></th>
-        <th><cst:localeTag key="admin.user.email"/></th>
         <th><cst:localeTag key="admin.device.name"/></th>
         <th><cst:localeTag key="admin.device.price.one"/></th>
         <th><cst:localeTag key="admin.order.numer"/></th>
         </thead>
     </table>
 </main>
-
 <jsp:include page="shared/footer.jsp"/>
 
 </body>

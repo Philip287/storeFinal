@@ -28,7 +28,8 @@
 
 </head>
 
-<body data-search="<cst:localeTag key="admin.search"/>"
+<body data-path="${pageContext.request.contextPath}"
+      data-search="<cst:localeTag key="admin.search"/>"
       data-device-page="<cst:localeTag key="user.device_page"/>"
       data-add-to-order="<cst:localeTag key="user.add_to_order"/>"
       data-id="<cst:localeTag key="admin.device.id"/>"

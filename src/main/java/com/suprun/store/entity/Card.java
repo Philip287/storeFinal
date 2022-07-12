@@ -18,21 +18,20 @@ public class Card {
 
     }
 
+    public static CardBuilder builder() {
+        return new Card().new CardBuilder();
+    }
+
+
     public Order getOrder() {
         return order;
     }
 
-    public void setOrder(Order order) {
-        this.order = order;
-    }
 
     public List<DeviceHasOrder> getDeviceHasOrder() {
         return deviceHasOrderList;
     }
 
-    public void setDeviceHasOrder(List<DeviceHasOrder> deviceHasOrder) {
-        this.deviceHasOrderList = deviceHasOrder;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -59,5 +58,32 @@ public class Card {
         sb.append(", deviceHasOrderList=").append(deviceHasOrderList);
         sb.append('}');
         return sb.toString();
+    }
+
+    public class CardBuilder {
+        private CardBuilder() {
+
+        }
+
+        public CardBuilder setOrder(Order order) {
+            Card.this.order = order;
+            return this;
+        }
+
+        public CardBuilder setDeviceHasOrderList(List<DeviceHasOrder> deviceHasOrderList) {
+            Card.this.deviceHasOrderList = deviceHasOrderList;
+            return this;
+        }
+
+        public CardBuilder of(Card card) {
+            Card.this.order = card.order;
+            Card.this.deviceHasOrderList = card.deviceHasOrderList;
+            return this;
+        }
+
+
+        public Card build() {
+            return Card.this;
+        }
     }
 }

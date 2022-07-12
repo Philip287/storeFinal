@@ -51,38 +51,30 @@ public class ControllerServlet extends HttpServlet {
 
         if (optionalPair.isPresent()) {
             Pair<Command, Set<AppRole>> pair = optionalPair.get();
-            System.out.println("commandParameter " + commandParameter); // FIXME: 06/07/2022
             Set<AppRole> appRoles = pair.getRight();
             AppRole currentUserRole = (AppRole) request.getSession().getAttribute(USER_ROLE);
             if (appRoles.contains(currentUserRole)) {
                 CommandResult commandResult = pair.getLeft().execute(request);
-                System.out.println("commandResult " + commandResult);// FIXME: 06/07/2022
                 CommandResult.RouteType routeType = commandResult.getRouteType();
-                System.out.println("routeType " + routeType); // FIXME: 06/07/2022
 
                 switch (routeType) {
                     case FORWARD -> {
                         String forwardPath = commandResult.getRoute();
                         request.getRequestDispatcher(forwardPath).forward(request, response);
-                        System.out.println("7. forwardPath " + forwardPath); // FIXME: 06/07/2022 
                     }
                     case REDIRECT -> {
                         String redirectUrl = commandResult.getRoute();
                         response.sendRedirect(request.getContextPath() + redirectUrl);
-                        System.out.println("8. redirectUrl " + redirectUrl); // FIXME: 06/07/2022 
                     }
                     case ERROR -> {
                         int errorCode = commandResult.getErrorCode();
                         response.sendError(errorCode);
-                        System.out.println("9. errorCode " + errorCode); // FIXME: 06/07/2022 
                     }
                     case JSON -> {
                         String jsonResponse = commandResult.getRoute();
                         response.getWriter().write(jsonResponse);
-                        System.out.println("10. jsonResponse " + jsonResponse); // FIXME: 06/07/2022 
                     }
                     default -> {
-                        System.out.println("11. default "); // FIXME: 06/07/2022 
                         LOGGER.error("Invalid route type: " + routeType.name());
                         response.sendError(SC_INTERNAL_SERVER_ERROR);
 
@@ -90,8 +82,6 @@ public class ControllerServlet extends HttpServlet {
                 }
             } else {
                 response.sendError(SC_FORBIDDEN);
-                System.out.println("12. else "); // FIXME: 06/07/2022 
-
             }
         } else {
             LOGGER.error("Specified command not found");

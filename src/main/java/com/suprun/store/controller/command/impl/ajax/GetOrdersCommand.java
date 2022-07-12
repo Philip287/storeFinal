@@ -54,19 +54,14 @@ public class GetOrdersCommand extends AbstractAjaxCommand<Order> {
 
     @Override
     protected void processDatatablesRequest(HttpServletRequest request, Map<String, Object> responseMap) throws ServiceException {
-        boolean activeOrder = Boolean.parseBoolean(request.getParameter(ACTIVE_ORDER));
         int start = Integer.parseInt(request.getParameter(PAGINATION_START));
         int length = Integer.parseInt(request.getParameter(PAGINATION_LENGTH));
         int draw = Integer.parseInt(request.getParameter(DRAW));
         String filterCriteria = request.getParameter(FILTER_CRITERIA);
         String searchValue = request.getParameter(SEARCH_VALUE);
 
-        Pair<Long, List<Order>> pair;
-        if (activeOrder) {
-            pair = filterForActiveOrderForDatatables(start, length, filterCriteria, searchValue);
-        } else {
-            pair = filterForDatatables(start, length, filterCriteria, searchValue);
-        }
+        Pair<Long, List<Order>> pair = filterForDatatables(start, length, filterCriteria, searchValue);
+
 
         long recordsFetched = pair.getLeft();
         List<Order> orders = pair.getRight();
@@ -77,11 +72,4 @@ public class GetOrdersCommand extends AbstractAjaxCommand<Order> {
         responseMap.put(DATA, orders);
     }
 
-    private Pair<Long, List<Order>> filterForActiveOrderForDatatables(int start, int length, String filterCriteria,
-                                                                      String searchValue) throws ServiceException {
-        return searchValue.isEmpty()
-                ? orderService.filterForActiveOrder(start, length, OrderFilterCriteria.NONE, null)
-                : orderService.filterForActiveOrder(start, length, OrderFilterCriteria.valueOf(filterCriteria), searchValue);
-
-    }
 }

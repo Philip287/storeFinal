@@ -3,7 +3,6 @@
 <%@ taglib uri="customshop-tags" prefix="cst" %>
 
 <footer data-locale="${sessionScope.locale}">
-
     <nav class="navbar fixed-bottom navbar-light bg-light">
         <div class="container-fluid">
             <ul class="nav navbar-nav">

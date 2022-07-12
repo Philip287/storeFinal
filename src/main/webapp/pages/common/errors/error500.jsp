@@ -25,9 +25,6 @@ Exception : ${pageContext.exception} <br/>
 <br/>
 Massage from exception: ${error_msg}
 <hr/>
-<hr/>
-<hr/>
-<hr/>
 
 <jsp:include page="../shared/footer.jsp" />
 

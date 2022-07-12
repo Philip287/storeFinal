@@ -4,9 +4,14 @@ import com.suprun.store.controller.command.Command;
 import com.suprun.store.controller.command.CommandResult;
 import com.suprun.store.entity.Order;
 import com.suprun.store.entity.Order.OrderStatus;
+import com.suprun.store.entity.User;
 import com.suprun.store.exception.ServiceException;
 import com.suprun.store.service.OrderService;
+import com.suprun.store.service.UserService;
 import com.suprun.store.service.impl.OrderServiceImpl;
+import com.suprun.store.service.impl.UserServiceImpl;
+import com.suprun.store.util.MailUtil;
+import com.suprun.store.util.impl.MailUtilImpl;
 import jakarta.servlet.http.HttpServletRequest;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -22,6 +27,9 @@ public class UpdateOrderCommand implements Command {
 
     private static final Logger LOGGER = LogManager.getLogger();
     private final OrderService orderService = OrderServiceImpl.getInstance();
+    private final MailUtil mailUtil = MailUtilImpl.getInstance();
+    private final UserService userService = UserServiceImpl.getInstance();
+
 
     @Override
     public CommandResult execute(HttpServletRequest request) {
@@ -29,8 +37,10 @@ public class UpdateOrderCommand implements Command {
         long userId = Long.parseLong(request.getParameter(ID_USER));
         OrderStatus orderStatus = OrderStatus.valueOf(request.getParameter(ORDER_STATUS));
 
+
         try {
             Optional<Order> optionalOrder = orderService.findById(entityId);
+            Optional<User> optionalUser = userService.findById(userId);
             if (optionalOrder.isPresent()) {
                 Order order = optionalOrder.get();
                 Order updateOrder = Order.builder().of(order)
@@ -38,6 +48,9 @@ public class UpdateOrderCommand implements Command {
                         .setUserId(userId)
                         .build();
                 orderService.update(updateOrder);
+                User user = optionalUser.get();
+                mailUtil.sendOrderInProgressMail(user.getEmail(), order.getEntityId(),
+                        request.getScheme(), request.getServerName());
                 return CommandResult.createRedirectResult(ADMIN_ORDERS_URL);
             } else {
                 return CommandResult.createErrorResult(SC_NOT_FOUND);

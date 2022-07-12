@@ -10,6 +10,10 @@ public class PasswordValidator implements Validator<String> {
 
     private static Validator<String> instance;
 
+    private PasswordValidator(){
+
+    }
+
     public static Validator<String> getInstance() {
         if (instance == null) {
             instance = new PasswordValidator();

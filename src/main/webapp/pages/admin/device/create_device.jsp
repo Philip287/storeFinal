@@ -35,7 +35,7 @@
         <div class="form-outline mb-2">
             <label class="form-group" for="nameInput"><cst:localeTag key="admin.device.name" /></label>
             <input id="nameInput" type="text" name="name" placeholder=<cst:localeTag key="placeholder.name" /> required class="form-control form-control-sm"
-                   pattern="[a-zA-Z0-9\s\-]{1,30}">
+                   pattern="[a-zA-Z0-9s\-]{1,30}">
         </div>
         <div class="form-outline mb-2">
             <label class="form-group" for="deviceTypeSelect"><cst:localeTag key="admin.device.type" /></label>
@@ -50,7 +50,7 @@
                 <option value="PROCESSOR"><cst:localeTag key="admin.device.type.processor" /></option>
                 <option value="RAM"><cst:localeTag key="admin.device.type.ram" /></option>
                 <option value="SPEAKER"><cst:localeTag key="admin.device.type.speaker" /></option>
-                <option value="VIDEO_CARD"><cst:localeTag key="admin.device.type.video_card" /></option>
+                <option value="VIDEOCARD"><cst:localeTag key="admin.device.type.video_card" /></option>
                 <option value="VENTILATOR"><cst:localeTag key="admin.device.type.ventilator" /></option>
             </select>
         </div>
@@ -62,7 +62,7 @@
         <div class="form-outline mb-2">
             <label class="form-group" for="descriptionInput"><cst:localeTag key="admin.device.description" /></label>
             <textarea  id="descriptionInput" name="description" placeholder=<cst:localeTag key="placeholder.description" />
-                    required class="form-control form-control-sm"  pattern="[а-яёА-ЯЁ][a-zA-Z0-9\s\-]{1,200}">   </textarea>
+                    required class="form-control form-control-sm"  pattern="[a-zA-Z0-9s\-]{1,2000}">   </textarea>
         </div>
         <div class="form-outline mb-2">
             <label class="form-group" for="priceInput"><cst:localeTag key="admin.device.price" /></label>

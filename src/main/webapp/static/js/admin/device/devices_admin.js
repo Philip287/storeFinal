@@ -23,12 +23,12 @@ $(document).ready(function () {
     let deleteData = bodyTag.data('delete');
     let createData = bodyTag.data('create');
     let anyData = bodyTag.data('any');
+    let path = bodyTag.data('path');
 
     let footer = $('footer');
     let locale = footer.data('locale');
     localeChange($('#localeSelect'), locale);
 
-    let rew = "/Gradle___com_suprun___store_1_0_SNAPSHOT_war";
     let jsonUrl;
     if (locale === 'en_US') {
         jsonUrl = 'https://cdn.datatables.net/plug-ins/1.11.1/i18n/en-gb.json'
@@ -45,7 +45,7 @@ $(document).ready(function () {
         serverSide: true,
         ordering: false,
         ajax: {
-            url: rew + '/controller?command=get_devices',
+            url: path + '/controller?command=get_devices',
             data: function (data) {
                 data.filterCriteria = $('#searchCriteria').val();
                 data.requestType = 'DATATABLE';
@@ -77,7 +77,7 @@ $(document).ready(function () {
                         return "<p>" + ramData + "</p>";
                     } else if (data === "SPEAKER") {
                         return "<p>" + speakerData + "</p>";
-                    } else if (data === "VIDEO_CARD") {
+                    } else if (data === "VIDEOCARD") {
                         return "<p>" + videoCardData + "</p>";
                     } else if (data === "COOLER") {
                         return "<p>" + coolerData + "</p>";
@@ -99,9 +99,9 @@ $(document).ready(function () {
             {
                 data: null,
                 render: function (row) {
-                    return '<a href= "/Gradle___com_suprun___store_1_0_SNAPSHOT_war/controller?command=go_to_edit_device_page&id=' + row.entityId + '" type="button" class="btn btn-outline-primary me-1">'
+                    return '<a href= "'+ path + '/controller?command=go_to_edit_device_page&id=' + row.entityId + '" type="button" class="btn btn-outline-primary me-1">'
                         + editData + '</a>'
-                        + '<a href= "/Gradle___com_suprun___store_1_0_SNAPSHOT_war/controller?command=delete_device&id=' + row.entityId + '" type="button" class="btn btn-outline-primary me-1">'
+                        + '<a href= "'+ path + '/controller?command=delete_device&id=' + row.entityId + '" type="button" class="btn btn-outline-primary me-1">'
                         + deleteData + '</a>'
                 }
             },
@@ -136,7 +136,7 @@ $(document).ready(function () {
         searchSelect.hide();
 
         $('#createButton').click(function () {
-            window.location.href = rew + "/controller?command=go_to_create_device_page";
+            window.location.href = path + "/controller?command=go_to_create_device_page";
         });
 
         searchInput.keyup(function () {
@@ -158,11 +158,11 @@ $(document).ready(function () {
                     .append($("<option></option>").attr("value", "MONITOR").text(monitorData))
                     .append($("<option></option>").attr("value", "MOTHERBOARD").text(motherboardDta))
                     .append($("<option></option>").attr("value", "MOUSE").text(mouseData))
-                    .append($("<option></option>").attr("value", "POWER_SUPPLY").text(ramData))
+                    .append($("<option></option>").attr("value", "POWER_SUPPLY").text(powerSupplyData))
                     .append($("<option></option>").attr("value", "PROCESSOR").text(processorData))
                     .append($("<option></option>").attr("value", "RAM").text(ramData))
                     .append($("<option></option>").attr("value", "SPEAKER").text(speakerData))
-                    .append($("<option></option>").attr("value", "VIDEO_CARD").text(videoCardData))
+                    .append($("<option></option>").attr("value", "VIDEOCARD").text(videoCardData))
                     .append($("<option></option>").attr("value", "COOLER").text(coolerData))
                     .append($("<option></option>").attr("value", "VENTILATOR").text(ventilatorData))
                 searchSelect.select('destroy');
@@ -170,7 +170,6 @@ $(document).ready(function () {
                 table.search(searchInput.val()).draw();
                 searchInput.show();
                 searchSelect.hide();
-                // searchSelect.select('destroy');
             }
         });
 

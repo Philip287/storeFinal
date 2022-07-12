@@ -24,7 +24,10 @@
 
 </head>
 
-<body>
+<body data-user-id="${sessionScope.userId}"
+      data-price="<cst:localeTag key="admin.card.price"/>"
+      data-remove="<cst:localeTag key="admin.card.remove"/>"
+      data-quantity="<cst:localeTag key="admin.card.quantity"/>">
 
 <jsp:include page="./shared/header.jsp"/>
 
@@ -33,16 +36,20 @@
         <cst:localeTag key="index.card" />
     </h3>
     <div id="page-card" class="content"></div>
-    <form id="create_order_form" action="${pageContext.request.contextPath}/controller?command=create_order_and_device_has_order"
-          method="post" enctype="multipart/form-data">
+    <div style="display: flex;font-weight: 700;"> <cst:localeTag key="admin.card.price.all"/> <div class="card-price"></div> BYN</div>
+    <form id="create_order_form" class="create_order_form" action="${pageContext.request.contextPath}/controller?command=create_order_and_device_has_order"
+          method="POST" enctype="multipart/form-data">
         <div class="form-actions text-center">
-            <input type="hidden" name="card" id="send-get-storage" value="">
-            <input type="submit" class="btn btn-secondary btn-block send-submit" value="<cst:localeTag key="admin.place_order" />">
+            <input type="hidden" name="jsonCard" id="send-get-storage" value="">
+            <button class="btn btn-secondary btn-block send-submit send-submit-card" ><cst:localeTag key="admin.place_order" /></button>
         </div>
     </form>
 <jsp:include page="shared/footer.jsp"/>
 
+</main>
+
     <script src="./static/js/common/card.js"></script>
+
 </body>
 
 </html>

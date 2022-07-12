@@ -67,7 +67,7 @@
                             <li class="nav-item">
                                 <a href="${pageContext.request.contextPath}/controller?command=go_to_orders_page"
                                    role="button" class="btn btn-primary m-1">
-                                    <cst:localeTag key="index.order"/>
+                                    <cst:localeTag key="admin.manager"/>
                                 </a>
                             </li>
                             <li class="nav-item">

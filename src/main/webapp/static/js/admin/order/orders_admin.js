@@ -9,13 +9,13 @@ $(document).ready(function () {
     let completedData = bodyTag.data('completed');
     let moreDetailedData = bodyTag.data('more-detailed');
     let deleteData = bodyTag.data('delete');
-    let createData = bodyTag.data('create');
     let anyData = bodyTag.data('any');
     let footer = $('footer');
     let locale = footer.data('locale');
+    let userRole = bodyTag.data('user-role');
+    let path =bodyTag.data('path');
     localeChange($('#localeSelect'), locale);
 
-    let rew = "/Gradle___com_suprun___store_1_0_SNAPSHOT_war";
     let jsonUrl;
     if (locale === 'en_US') {
         jsonUrl = 'https://cdn.datatables.net/plug-ins/1.11.1/i18n/en-gb.json'
@@ -32,7 +32,7 @@ $(document).ready(function () {
         serverSide: true,
         ordering: false,
         ajax: {
-            url: rew + '/controller?command=get_orders',
+            url: path +  '/controller?command=get_orders',
             data: function (data) {
                 data.filterCriteria = $('#searchCriteria').val();
                 data.requestType = 'DATATABLE';
@@ -47,7 +47,10 @@ $(document).ready(function () {
             {
                 data: null,
                 render: function (row) {
-                    return '<a href="/Gradle___com_suprun___store_1_0_SNAPSHOT_war/controller?command=go_to_edit_user_page&id=' + row.userId + '" class="text-decoration-none"></a>'
+                   let returnData = userRole == 'ADMIN'
+                        ? '<a href="'+ path + '/controller?command=go_to_edit_user_page&id=' + row.userId + '" class="text-decoration-none"></a>'
+                        : '<a href="' + window.location.href + '"></a>'
+                    return returnData
                 }
             },
             {
@@ -65,16 +68,15 @@ $(document).ready(function () {
             {
                 data: null,
                 render: function (row) {
-                    console.log(row)
-                    return '<a href="/Gradle___com_suprun___store_1_0_SNAPSHOT_war/controller?command=go_to_order_page&id=' + row.entityId + '" type="button" class="btn btn-outline-primary me-1">'
+                    return '<a href="'+ path + '/controller?command=go_to_order_page&id=' + row.entityId + '" type="button" class="btn btn-outline-primary me-1">'
                         + moreDetailedData + '</a>'
-                        + '<a href="/Gradle___com_suprun___store_1_0_SNAPSHOT_war/controller?command=delete_order&id=' + row.entityId + '" type="button" class="btn btn-outline-primary me-1">'
+                        + '<a href="'+ path + '/controller?command=delete_order&id=' + row.entityId + '" type="button" class="btn btn-outline-primary me-1">'
                         + deleteData + '</a>'
-                        + '<a href="/Gradle___com_suprun___store_1_0_SNAPSHOT_war/controller?command=update_order&id=' + row.entityId + '&orderStatus=ORDERED&userId=' + row.userId  + '" type="button" class="btn btn-outline-primary me-1">'
+                        + '<a href="'+ path + '/controller?command=update_order&id=' + row.entityId + '&orderStatus=ORDERED&userId=' + row.userId  + '" type="button" class="btn btn-outline-primary me-1">'
                         + orderedData + '</a>'
-                        + '<a href="/Gradle___com_suprun___store_1_0_SNAPSHOT_war/controller?command=update_order&id=' + row.entityId + '&orderStatus=IN_PROGRESS&userId=' +  row.userId + '" type="button" class="btn btn-outline-primary me-1">'
+                        + '<a href="'+ path + '/controller?command=update_order&id=' + row.entityId + '&orderStatus=IN_PROGRESS&userId=' +  row.userId + '" type="button" class="btn btn-outline-primary me-1">'
                         + inProgressData + '</a>'
-                        + '<a href="/Gradle___com_suprun___store_1_0_SNAPSHOT_war/controller?command=update_order&id=' + row.entityId + '&orderStatus=COMPLETED&userId=' + row.userId  + '" type="button" class="btn btn-outline-primary me-1">'
+                        + '<a href="'+ path + '/controller?command=finish_order&id=' + row.entityId + '&orderStatus=COMPLETED&userId=' + row.userId  + '" type="button" class="btn btn-outline-primary me-1">'
                         + completedData + '</a>'
                 }
             },
@@ -86,10 +88,7 @@ $(document).ready(function () {
 
     function onDataTableInitComplete(table) {
         $("div.toolbar").html(`
-            <div class="input-group input-group-sm mb-2">
-                <button id="createButton" type="button" class="btn btn-secondary">
-                    ${createData}
-                </button>
+            <div class="input-group input-group-sm mb-2">               
                 <select id="searchCriteria" class="form-select input-sm">
                     <option value="ID">${idData}</option>        
                     <option value="LOGIN">${userData}</option>
@@ -125,7 +124,7 @@ $(document).ready(function () {
                     maximumInputLength: 30,
                     ajax: {
                         delay: 250,
-                        url: rew + '/controller?command=get_users',
+                        url: path + '/controller?command=get_users',
                         data: function (params) {
                             return {
                                 term: params.term || '',

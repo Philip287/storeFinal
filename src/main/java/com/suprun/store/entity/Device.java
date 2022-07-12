@@ -26,7 +26,7 @@ public class Device extends AbstractEntity {
         PROCESSOR,
         RAM,
         SPEAKER,
-        VIDEO_CARD,
+        VIDEOCARD,
         COOLER,
         VENTILATOR
     }

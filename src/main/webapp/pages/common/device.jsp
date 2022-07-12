@@ -25,7 +25,12 @@
 
 </head>
 
-<body>
+<body
+    data-user-id="${sessionScope.userId}"
+    data-name="${requestScope.device.name}"
+    data-price="${requestScope.device.price}"
+    data-entity-id="${requestScope.device.entityId}"
+    data-picture-path="${pageContext.request.contextPath}/${requestScope.device.picturePath}">
 
 <jsp:include page="./shared/header.jsp"/>
 
@@ -34,13 +39,12 @@
         <cst:localeTag key="user.device_page"/>
     </h3>
 
-    <form id="device_form" action="${pageContext.request.contextPath}/controller?command=add_device_to_order"
-          method="post" enctype="multipart/form-data">
+    <div class="device-page">
         <div class="device">
             <div class="device">
-                <h3>${requestScope.device.name}</h3>
+                <h3 class="device-title">${requestScope.device.name}</h3>
             </div>
-            <img id="image" src="${pageContext.request.contextPath}/${requestScope.device.picturePath}" alt="Device picture"
+            <img id="image" src="${requestScope.device.picturePath}" alt="Device picture"
                  class="img-thumbnail" style="width:100%;">
             <div class="container" style="background-color:white">
                 <h2><b><cst:localeTag key="admin.device.description"/></b></h2>
@@ -55,10 +59,10 @@
             </div>
         </div>
 
-        <div class="form-actions text-center">
-            <input type="submit" class="btn btn-secondary btn-block" value="<cst:localeTag key="user.add_to_order"/>">
+        <div class="form-actions text-center" style="margin-bottom: 50px">
+            <button class="btn btn-secondary btn-block add-to-card"><cst:localeTag key="user.add_to_order"/></button>
         </div>
-    </form>
+    </div>
 
 </main>
 
